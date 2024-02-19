@@ -8,21 +8,27 @@
 \usepackage[indentafter]{titlesec}
 \usepackage[singlespacing]{setspace}
 \usepackage{changepage}
-% As regards to colour (like red text in the template we used), use the
-% \textcolor command directly on the block of text which is to be coloured,
-% not, e.g. wrapping a whole \itemize list or wrapping a \subsection{} list.
-% The reason for this is that the section numbering looks odd, and for some
-% reason it also introduces a spurrious new-line before the list or section.
-% It also seems to affect the indentation, even though the only thing which
-% changes is the colour.
+% Colourisation of certain clauses
+%'
+%' As regards to colour (like red text in the template we used),
+%' use the \textcolor command directly on the block of text which is to
+%' be coloured, not, e.g. wrapping a whole \itemize list or wrapping a
+%' \subsection{} list.
+%'
+%' The reason for this is that the section numbering looks odd,
+%' and for some reason it also introduces a spurrious new-line before the
+%' list or section. It also seems to affect the indentation, even though
+%' the only thing which changes is the colour.
 \usepackage{xcolor}
-% We may want to have more informative links than "Article X.Y",
-% e.g. "Article 64.1 (Minutes)". Although there is a link in the PDF,
-% it makes it much more readable if we can have this.
-% This is something which only hyperref supports as far as I know.
+% Links to article references
+%'
+%' We may want to have more informative links than "Article X.Y",
+%' e.g. "Article 64.1 (Minutes)". Although there is a link in the PDF,
+%' it makes it much more readable if we can have this.
+%' This is something which only hyperref supports as far as I know.
 \usepackage{hyperref}
 
-% Section numbering
+% Custom section numbering
 %'
 %' This bit was really annoying, basically we treat sections as top-level
 %' titles like in the Book document class. We don't want to number them.
@@ -39,17 +45,30 @@
 \renewcommand\thesubsubsection{\@arabic\c@subsection.\@arabic\c@subsubsection}
 \makeatother
 
-% Note the ordering here:
-%' Remove numbering altogether from section
-%' Note no argument \thesection.
-%' The hang part is pretty important. The text otherwise appears at the
-%' very start of the next line! I don't know why block doesn't work
-%' like this. I just tried each titlesec shape option until I found this
-%' one worked best.
+% Custom section formatting
 %'
-%' I don't fully understand the mechanism behind indenting text following a section,
-%' but I can see why the text isn't automatically indented (we are effectively
-%' abusing the sections, which are usually titles, as numbered clausing).
+%' This compliments the section numbering above: note no argument
+%' \thesection in \section's \titleformat incantation.
+%'
+%' The hang part in sub-/sub-sub-sections is pretty important.
+%' The text otherwise appears at the very start of the next line!
+%' I don't know why block doesn't work like this.
+%' I just tried each titlesec shape option in the manual until I found
+%' this one worked best.
+%'
+%' The desired behaviour of indentation of subsequent text is actually in
+%' conflict with the expected behaviour. The expected behaviour is that
+%' subsequent text should be aligned with the section body, which it is,
+%' as our sub-/sub-sub-sections are not indented.
+%'
+%' Actually getting it to be aligned with the section body was fairly
+%' difficult. One trick which works is to have the section body be a
+%' text-box with a predictable indentation from the line, and also to
+%' align the box to the left.
+%'
+%' I have defined a variable \clauseident which is inherited by the
+%' sub/sub-sub-sections' as well as the \hangindent. I think it looks
+%' good if those are roughly the same size.
 %'
 %' The neat suggestion to use a text box was adapted from the following TeX StackExchange answer: https://tex.stackexchange.com/questions/405372/align-section-with-text-body/405373#405373
 %'
@@ -67,27 +86,6 @@
 % Environment to set indentation + hanging paragraph on lists
 %' This is from the hang package, whereas the similarly-named hanging
 %' package doesn't support itemised lists.
-%
-% There are two elements of indentation in this environment:
-%' 1. Adjusting the width of the paragraph indentation. 
-%'    All of the sections/sub-sections/sub-sub-sections are identically spaced
-%'    from the margin. However, paragraphs which follow are not; they appear at
-%'    the edge of the margin by default.
-%'    The 26pt number is visually aligned with the section body text above it.
-%'    It was just trial and error to find the right amount. 
-%'
-%'    I also suspect that it may break if we change font or margins, 
-%'    which we might want to do as the TeX defaults don't permit much text on 
-%'    the page, at least compared to the template. 
-%'    This is a matter of expectations and there is an argument to make it closer 
-%'    to the template, at minimum in terms of margins as the document is
-%'    otherwise very long.
-%' 
-%' 2. Adjusting the indentation of hanging paragraphs. The default is 1em. I have
-%'    made it 26pt as so that it is identical to the indentation from the margin.
-%'    This number is arbitrary, but it's much more readable than 1em.
-%'    Note that the template's hanging paragraphs are longer still. We might want
-%'    to reproduce that.
 \setlength{\hangingindent}{\clauseindent}
 \newenvironment{subindent}{\begin{adjustwidth}{\clauseindent}{}\begin{hanginglist}}{\end{hanginglist}\end{adjustwidth}}
 
