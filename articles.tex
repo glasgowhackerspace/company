@@ -1,0 +1,289 @@
+\documentclass[12pt]{article}
+%\usepackage[scaled]{helvet}
+%\usepackage[T1]{fontenc}
+%\usepackage[a4paper, total={6in,8in}]{geometry}
+% \usepackage{graphicx} % Required for inserting images
+\usepackage{hang}
+% \usepackage{endnotes}
+\usepackage[indentafter]{titlesec}
+\usepackage[singlespacing]{setspace}
+\usepackage{changepage}
+% As regards to colour (like red text in the template we used), use the
+% \textcolor command directly on the block of text which is to be coloured,
+% not, e.g. wrapping a whole \itemize list or wrapping a \subsection{} list.
+% The reason for this is that the section numbering looks odd, and for some
+% reason it also introduces a spurrious new-line before the list or section.
+% It also seems to affect the indentation, even though the only thing which
+% changes is the colour.
+\usepackage{xcolor}
+% We may want to have more informative links than "Article X.Y",
+% e.g. "Article 64.1 (Minutes)". Although there is a link in the PDF,
+% it makes it much more readable if we can have this.
+% This is something which only hyperref supports as far as I know.
+\usepackage{hyperref}
+
+% Section numbering
+%'
+%' This bit was really annoying, basically we treat sections as top-level
+%' titles like in the Book document class. We don't want to number them.
+%' Just hiding the section numbering with titlesec means that there's an
+%' extra padded section number in front of a given subsection.
+%' There are other simpler tricks to do this but these then have the
+%' problem of no continuation across sections, i.e. the subsections start
+%' numbered from 1 again in each new section!
+%'
+%' Partly via: https://tex.stackexchange.com/questions/80113/hide-section-numbers-but-keep-numbering/80114#80114
+\makeatletter
+\renewcommand\thesection{}
+\renewcommand\thesubsection{\@arabic\c@subsection}
+\renewcommand\thesubsubsection{\@arabic\c@subsection.\@arabic\c@subsubsection}
+\makeatother
+
+% Note the ordering here:
+%' Remove numbering altogether from section
+%' Note no argument \thesection.
+%' The hang part is pretty important. The text otherwise appears at the
+%' very start of the next line! I don't know why block doesn't work
+%' like this. I just tried each titlesec shape option until I found this
+%' one worked best.
+%'
+%' I don't fully understand the mechanism behind indenting text following a section,
+%' but I can see why the text isn't automatically indented (we are effectively
+%' abusing the sections, which are usually titles, as numbered clausing).
+%'
+%' The neat suggestion to use a text box was adapted from the following TeX StackExchange answer: https://tex.stackexchange.com/questions/405372/align-section-with-text-body/405373#405373
+%'
+\def\clauseindent{30pt}
+
+\titleformat{\section}[runin]% Section to customise
+            {\Large\bfseries}% Title text format
+            {}%                Title body
+            {0pt}%             Horizontal separation between label/title body
+            {}%                Space before title body
+            []%                Space after title body
+\titleformat{\subsection}[hang]{\bfseries}{\makebox[\clauseindent][l]{\thesubsection.}}{0pt}{}
+\titleformat{\subsubsection}[hang]{\mdseries}{\makebox[\clauseindent][l]{\thesubsubsection.}}{0pt}{}
+
+% Environment to set indentation + hanging paragraph on lists
+%' This is from the hang package, whereas the similarly-named hanging
+%' package doesn't support itemised lists.
+%
+% There are two elements of indentation in this environment:
+%' 1. Adjusting the width of the paragraph indentation. 
+%'    All of the sections/sub-sections/sub-sub-sections are identically spaced
+%'    from the margin. However, paragraphs which follow are not; they appear at
+%'    the edge of the margin by default.
+%'    The 26pt number is visually aligned with the section body text above it.
+%'    It was just trial and error to find the right amount. 
+%'
+%'    I also suspect that it may break if we change font or margins, 
+%'    which we might want to do as the TeX defaults don't permit much text on 
+%'    the page, at least compared to the template. 
+%'    This is a matter of expectations and there is an argument to make it closer 
+%'    to the template, at minimum in terms of margins as the document is
+%'    otherwise very long.
+%' 
+%' 2. Adjusting the indentation of hanging paragraphs. The default is 1em. I have
+%'    made it 26pt as so that it is identical to the indentation from the margin.
+%'    This number is arbitrary, but it's much more readable than 1em.
+%'    Note that the template's hanging paragraphs are longer still. We might want
+%'    to reproduce that.
+\setlength{\hangingindent}{\clauseindent}
+\newenvironment{subindent}{\begin{adjustwidth}{\clauseindent}{}\begin{hanginglist}}{\end{hanginglist}\end{adjustwidth}}
+
+\title{Glasgow Hackerspace CIC Articles of Association}
+\date{\today}
+
+% Shortcut to save some typing
+\newcommand{\companyact}{Companies Act 2006}
+% End of preamble
+
+% Helvetica as font
+%\renewcommand\familydefault{\sfdefault}
+
+\begin{document}
+
+% \maketitle % todo: add CIC etc
+
+\section*{Interpretation}
+
+\subsection{Defined Terms}
+\subsubsection{The interpretation of these Articles is governed by the provisions set out in the Schedule at end of the Articles.}
+
+\section*{Community Interest Company and Asset Lock}
+
+% The following sub-section is highlighted in red in template: Obviously fundamental to C.I.C. operation!
+\subsection{Community Interest Company}
+\subsubsection{\textcolor{red}{The Company is to be a community interest company.}}
+% The following sub-section is highlighted in red in template: Fundamental to C.I.C. operation!
+\subsection{Asset Lock}
+  \subsubsection{\label{subsubsubsection:fullconsideration}\textcolor{red}{The Company shall not transfer any of its assets other than for full consideration.}}
+  \subsubsection{\textcolor{red}{Provided the conditions in Article \ref{subsubsubsection:transferrestrictions} are satisfied, Article \ref{subsubsubsection:fullconsideration} shall not apply to:}}
+  \begin{subindent}
+    \item\textcolor{red}{the transfer of assets to any specified asset-locked body, or (with the consent of the Regulator) to any other asset-locked body; and}
+    \item\label{subsubsubsection:transferrestrictions}\textcolor{red}{The conditions are that the transfer of assets must comply with any restrictions on the transfer of assets for less than full consideration which may be set out elsewhere in the Memorandum and Articles of the Company.}
+  \end{subindent}
+% The following sub-section is not highlighted in red, but don't remove this, as it's fundamental to the space's model!
+\subsection{Not For Profit}
+\subsubsection{The Company is not established or conducted for private gain: any surplus or assets are
+used principally for the benefit of the community.}
+
+\section*{Objects, Powers and Limitation of Liability}
+
+\subsection{Objects}
+\subsubsection{The objects of the Company are to carry on activities which benefit the community and in particular (without limitation) to provide infrastructure and collaboration opportunities for people who otherwise would not have access to them.}
+
+\subsection{Powers}
+\subsubsection{To further its objects the Company may do all such lawful things as may further the Company’s objects and, in particular, but, without limitation, may borrow or raise and secure the payment of money for any purpose including for the purposes of investment or of raising funds.}
+
+\subsection{Liability of Members}
+\subsubsection{The liability of each member is limited to £1, being the amount that each member undertakes to contribute to the assets of the Company in the event of its being wound up while they are a member or within one year after they cease to be a member, for:}
+\begin{subindent}
+  \item payment of the Company’s debts and liabilities contracted before they cease to be a member;
+  \item payment of the costs, charges and expenses of winding up; and
+  \item adjustment of the rights of the contributories among themselves.
+\end{subindent}
+
+\subsection{Use of Resources}
+\subsubsection{The Hackerspace shall make no claim and take no responsibility for the projects created by users of the Hackerspace's resources.}
+\subsubsection{Use of the Hackerspace's facilities and equipment shall be at the user's own risk.}
+\subsubsection{The Hackerspace shall not be held responsible nor liable for any actions or behaviour of individuals or groups, whether members or guests.}
+
+\section*{Directors}
+\section*{Directors' Powers and Responsibilities}
+
+\subsection{Number of Directors}
+\subsubsection{There shall be at most 5 directors.}
+
+\subsection{Treasurer}
+\subsubsection{One of the Directors shall be the treasurer.}
+\subsubsection{A person elected to be treasurer shall automatically cease to hold that office:}
+\begin{subindent}
+  \item If they cease to be a Director; or
+  \item If they give to the Hackerspace a notice of resignation from that office, signed by them.
+\end{subindent}
+\subsubsection{If the treasurer ceases to hold that office, or the office of Director, the remaining Directors shall appoint a replacement treasurer from amongst their number.}
+
+\subsection{Directors' General Authority}
+\subsubsection{Subject to the Articles, the Directors are responsible for the management of the Company’s business, for which purpose they may exercise all the powers of the Company.}
+
+\subsection{Members' Reserve Power}
+\subsubsection{The members may, by special resolution, direct the Directors to take, or refrain from taking, specific action.}
+\subsubsection{No such special resolution invalidates anything which the Directors have done before the passing of the resolution.}
+
+\subsection{Directors May Delegate}
+\subsubsection{Subject to the Articles, the Directors may delegate any of the powers which are conferred on them under the Articles:}
+\begin{subindent}
+    \item to such person or committee;
+    \item by such means (including by power of attorney);
+    \item to such an extent;
+    \item in relation to such matters or territories; and
+    \item on such terms and conditions;
+    \item as they think fit.
+\end{subindent}
+\subsubsection{If the Directors so specify, any such delegation may authorise further delegation of the Directors’ powers by any person to whom they are delegated.}
+\subsubsection{The Directors may revoke any delegation in whole or part, or alter its terms and conditions.}
+
+\subsection{Committees}
+\subsubsection{Committees to which the Directors delegate any of their powers must follow procedures which are based as far as they are applicable on those provisions of the Articles which govern the taking of decisions by Directors.}
+\subsubsection{The Directors may make rules of procedure for all or any committees, which prevail over rules derived from the Articles if they are not consistent with them.}
+
+\section*{Decision-Making by Directors}
+
+\subsection{Directors to take decisions collectively}
+\subsubsection{Any decision of the Directors must be either a majority decision at a meeting or a decision taken in accordance with Article \ref{subsubsection:withoutmeeting}.}
+
+\subsection{Calling a Directors’ meeting}
+\subsubsection{Two Directors may (and the Secretary, if any, must at the request of two Directors) call a Directors’ meeting.}
+\subsubsection{A Directors’ meeting must be called by at least seven Clear Days’ notice unless either:}
+\begin{subindent}
+  \item all the Directors agree; or
+  \item urgent circumstances require shorter notice.
+\end{subindent}
+\subsubsection{Notice of Directors’ meetings must be given to each Director.}
+\subsubsection{Every notice calling a Directors’ meeting must specify:}
+\begin{subindent}
+  \item the place, day and time of the meeting; and
+  \item if it is anticipated that Directors participating in the meeting will not be in the same place, how it is proposed that they should communicate with each other during the meeting.
+\end{subindent}
+\subsubsection{Notice of Directors’ meetings need not be in Writing.}
+\subsubsection{Notice of Directors’ meetings may be sent by Electronic Means to an Address provided by the Director for the purpose.}
+
+\subsection{Participation in Directors’ meetings}
+\subsubsection{Subject to the Articles, Directors participate in a Directors’ meeting, or part of a Directors’ meeting, when:}
+\begin{subindent}
+  \item the meeting has been called and takes place in accordance with the Articles; and
+  \item they can each communicate to the others any information or opinions they have on any particular item of the business of the meeting.
+\end{subindent}
+\subsubsection{In determining whether Directors are participating in a Directors’ meeting, it is irrelevant where any Director is or how they communicate with each other.}
+\subsubsection{If all the Directors participating in a meeting are not in the same place, they may decide that the meeting is to be treated as taking place wherever any of them is.}
+\subsubsection{The board may, at its discretion, allow any person to attend and speak at a board meeting notwithstanding that they are not a director, but on the basis that they must not participate in decision-making.}
+
+\subsection{Quorum for Directors’ meetings}
+\subsubsection{At a Directors’ meeting, unless a quorum is participating, no proposal is to be voted on,except a proposal to call another meeting.}
+\subsubsection{The quorum for Directors’ meetings may be fixed from time to time by a decision of the Directors, but it must never be fewer than three, and unless otherwise fixed it is three.}
+\subsubsection{If the total number of Directors for the time being is less than the quorum required, the Directors must not take any decision other than a decision to call a general meeting so as to enable the members to appoint further Directors.}
+
+\subsection{Chairing of Directors’ meetings}
+\subsubsection{A Director nominated by the Directors present shall preside as chair of each Directors’ meeting.}
+
+% The following sub-section is highlighted in red in template:
+\subsection{Decision making at a meeting}
+  \subsubsection{\textcolor{red}{Questions arising at a Directors’ meeting shall be decided by a majority of votes.}}
+  \subsubsection{\textcolor{red}{In all proceedings of Directors each Director must not have more than one vote.}}
+\subsection{\label{subsubsection:withoutmeeting}Decisions without a meeting}
+\subsubsection{\label{subsubsubsection:unanimous}The Directors may take a unanimous decision without a Directors’ meeting by indicating to each other by any means, including without limitation by Electronic Means, that they share a common view on a matter. Such a decision may, but need not, take the form of a resolution in Writing, copies of which have been signed by each Director or to which each Director has otherwise indicated agreement in Writing.}
+
+\subsubsection{\label{subsubsubsection:remotedecision}A decision which is made in accordance with Article \ref{subsubsubsection:unanimous} shall be as valid and effectual as if it had been passed at a meeting duly convened and held, provided the following conditions are complied with:}
+\begin{subindent}
+  \item approval from each Director must be received by one person being either such person as all the Directors have nominated in advance for that purpose or such other person as volunteers if necessary (“the Recipient”), which person may, for the avoidance of doubt, be one of the Directors;
+  \item following receipt of responses from all of the Directors, the Recipient must communicate to all of the Directors by any means whether the resolution has been formally approved by the Directors in accordance with this Article \ref{subsubsubsection:remotedecision};
+  \item the date of the decision shall be the date of the communication from the Recipient confirming formal approval;
+  \item the Recipient must prepare a minute of the decision in accordance with the \ref{subsection:minutes}.
+\end{subindent}
+\subsection{Conflicts of interest}
+\subsubsection{Whenever a Director finds themselves in a situation that is reasonably likely to give rise to a Conflict of Interest, they must declare their interest to the Directors unless, or except to the extent that, the other Directors are or ought reasonably to be aware of it already.}
+\subsubsection{If any question arises as to whether a Director has a Conflict of Interest, the question shall be decided by a majority decision of the other Directors.}
+\subsubsection{\label{subsubsubsection:directornovote}Whenever a matter is to be discussed at a meeting or decided in accordance with Article \ref{subsubsection:withoutmeeting} and a Director has a Conflict of Interest in respect of that matter then, subject to Article \ref{subsubsection:authconflict}, they must:}
+\begin{subindent}
+  \item remain only for such part of the meeting as in the view of the other Directors is necessary to inform the debate;
+  \item not be counted in the quorum for that part of the meeting; and
+  \item withdraw during the vote and have no vote on the matter.
+\end{subindent}
+\subsubsection{When a Director has a Conflict of Interest which they have declared to the Directors, they shall not be in breach of their duties to the Company by withholding confidential information from the Company if to disclose it would result in a breach of any other duty or obligation of confidence owed by them.}
+\subsubsection{\label{subsubsubsection:withdraw}A Director must not vote at a board meeting (or at a meeting of a sub-committee) on any resolution which relates to a matter in which they have a personal interest or duty which conflicts (or may conflict) with the interests of the Hackerspace; they must withdraw from the meeting while an item of that nature is being dealt with.}
+\subsubsection{For the purposes of subsubsection \ref{subsubsubsection:withdraw}: a Director will be deemed to have a personal interest in relation to a particular matter if a body in relation to which they are an Employee, Director, Officer or Elected Representative has an interest in the matter.}
+\subsubsection{If, as a result of a Conflict of Interest (and the Directors have not authorised this conflict of interest) quorum at a Directors' meeting cannot be reached, the Directors must defer the decision to the membership by calling an EGM.}
+
+\subsection{\label{subsubsection:authconflict}Directors’ power to authorise a conflict of interest}
+\subsubsection{\label{subsubsubsection:canauth}The Directors have power to authorise a Director to be in a position of Conflict of Interest provided:}
+\begin{subindent}
+  \item in relation to the decision to authorise a Conflict of Interest, the conflicted Director must comply with Article \ref{subsubsubsection:directornovote};
+  \item in authorising a Conflict of Interest, the Directors can decide the manner in which the Conflict of Interest may be dealt with and, for the avoidance of doubt, they can decide that the Director with a Conflict of Interest can participate in a vote on the matter and can be counted in the quorum;
+  \item the decision to authorise a Conflict of Interest can impose such terms as the Directors think fit and is subject always to their right to vary or terminate the authorisation.
+\end{subindent}
+\subsubsection{If a matter, or office, employment or position, has been authorised by the Directors in accordance with Article \ref{subsubsubsection:canauth} then, even if they have been authorised to remain at the meeting by the other Directors, the Director may absent themselves from meetings of the Directors at which anything relating to that matter, or that office, employment or position, will or may be discussed.}
+\subsubsection{A Director shall not be accountable to the Company for any benefit which they derive from any matter, or from any office, employment or position, which has been authorised by the Directors in accordance with Article \ref{subsubsubsection:canauth} (subject to any limits or conditions to which such approval was subject).}
+
+\subsection{Register of Directors’ interests}
+\subsubsection{The Directors shall cause a register of Directors’ interests to be kept. A Director must declare the nature and extent of any interest, direct or indirect, which they have in a proposed transaction or arrangement with the Company or in any transaction or arrangement entered into by the Company which has not previously been declared.}
+
+\section*{Appointment and Retirement of Directors}
+
+\subsection{Eligibility}
+\subsubsection{A person will not be eligible for election as a Director, unless they are a member of the Hackerspace.}
+\subsubsection{\label{subsection:caDisqualified}A person will not be eligible for election as a Director, if they are disqualified from being a company director under the Companies Act 2006.}
+
+\subsection{Methods of appointing directors}
+\subsubsection{Those persons notified to the Registrar of Companies as the first Directors of the Company shall be the first Directors.}
+\subsubsection{Any person who is willing to act as a Director, and is permitted by law to do so, may be appointed to be a Director by ordinary resolution.}
+\subsubsection{\label{subsection:rip}In any case where, as a result of death, the Company has no members and no Directors, the personal representatives of the last member to have died have the right, by notice in writing, to appoint a person to be a member.}
+\subsubsection{For the purposes of Article \ref{subsection:rip}, where two or more members die in circumstances rendering it uncertain who was the last to die, a younger member is deemed to have survived an older member.}
+
+\subsection{Election, retiral, and re-election}
+\subsubsection{\label{subsection:agmElect}At each AGM, the members may elect any member (unless they are debarred from
+membership under section \ref{subsection:caDisqualified}) to be one of the Directors.}
+\subsubsection{At each AGM, all of the Directors must retire from office, but shall then (subject to section \ref{subsection:3yperiod}) be eligible for re-election under section \ref{subsection:agmElect}.}
+\subsubsection{\label{subsection:3yperiod}A person who has served on the board for a period of 3 years shall automatically vacate office on expiry of that 3-year period, unless there are not enough eligible candidates standing at the AGM to form a board of Directors, as per section \ref{}. In the case of sufficient eligible candidates, a Director stepping down shall not be eligible for re-election until a further year has elapsed.}
+
+\end{document}
