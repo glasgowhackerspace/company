@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 %\usepackage[scaled]{helvet}
 %\usepackage[T1]{fontenc}
+\usepackage{hyperref}
 \usepackage[a4paper, margin=0.5in]{geometry}
 % \usepackage{graphicx} % Required for inserting images
 \usepackage{hang}
@@ -26,10 +27,8 @@
 %' e.g. "Article 64.1 (Minutes)". Although there is a link in the PDF,
 %' it makes it much more readable if we can have this.
 %' This is something which only hyperref supports as far as I know.
-\usepackage{hyperref}
-
 % Initial attempt to extract the short title, but it seems that it's not necessary
-% if the \fancyref call is well-defined
+% if the \ref call is well-defined
 % Note that these get tripped up on recursive/nested links! Nasty!
 %\makeatletter
 %\newcommand*\referencetitle[1]{\def\@currentlabelname{#1}}
@@ -40,7 +39,7 @@
 \def\subsubsectionautorefname{Clause}
 %
 % This command works but there's no link, just the text!
-%\newcommand*{\fancyref}[1]{\autoref*{#1} (\nameref*{#1})}
+%\newcommand*{\ref}[1]{\autoref*{#1} (\nameref*{#1})}
 %
 % Mostly working, just neeeded to add brackets around the \nameref call
 % https://tex.stackexchange.com/questions/121865/nameref-how-to-display-section-name-and-its-number
@@ -67,7 +66,7 @@
 % Custom section formatting
 %'
 %' This compliments the section numbering above: note no argument
-%' \thesection in \section's \titleformat incantation.
+%' \thesection in \section*'s \titleformat incantation.
 %'
 %' The hang part in sub-/sub-sub-sections is pretty important.
 %' The text otherwise appears at the very start of the next line!
@@ -297,7 +296,6 @@ used principally for the benefit of the community.}
 \subsubsection{The Directors shall cause a register of Directors' interests to be kept. A Director must declare the nature and extent of any interest, direct or indirect, which they have in a proposed transaction or arrangement with the Company or in any transaction or arrangement entered into by the Company which has not previously been declared.}
 
 \section*{Appointment and Retirement of Directors}
-
 \subsection{Eligibility}
 \subsubsection{A person will not be eligible for election as a Director, unless they are a member of the Hackerspace.}
 \subsubsection[Members' disqualification from standing as Director]{\label{subsection:caDisqualified}A person will not be eligible for election as a Director, if they are disqualified from being a company director under the Companies Act 2006.}
