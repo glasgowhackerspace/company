@@ -86,8 +86,18 @@
 % Environment to set indentation + hanging paragraph on lists
 %' This is from the hang package, whereas the similarly-named hanging
 %' package doesn't support itemised lists.
+%'
+% There are actually two types of indentation:
+%' 1. A series of hanging paragraphs in a list (these are not labelled (a), (b) &c.)
+%' 2. Indented lists, which aren't hanging (these are labelled (a), (b) &c.)
+%'
+%' The hang package actually supports both. I thought it was odd that it
+%' didn't have labelled hanging lists, but I see in the template that they
+%' don't hang labelled list items!
+%'
 \setlength{\hangingindent}{\clauseindent}
-\newenvironment{subindent}{\begin{adjustwidth}{\clauseindent}{}\begin{hanginglist}}{\end{hanginglist}\end{adjustwidth}}
+\newenvironment{subindentpara}{\begin{adjustwidth}{\clauseindent}{}\begin{hanginglist}}{\end{hanginglist}\end{adjustwidth}}
+\newenvironment{subindentlist}{\begin{adjustwidth}{\clauseindent}{}\begin{labeledlist}{\clauseindent}}{\end{labeledlist}\end{adjustwidth}}
 
 \title{Glasgow Hackerspace CIC Articles of Association}
 \date{\today}
@@ -116,11 +126,11 @@
 % The following sub-section is highlighted in red in template: Fundamental to C.I.C. operation!
 \subsection{Asset Lock}
   \subsubsection{\label{subsubsubsection:fullconsideration}\textcolor{red}{The Company shall not transfer any of its assets other than for full consideration.}}
-  \subsubsection{\textcolor{red}{Provided the conditions in Article \ref{subsubsubsection:transferrestrictions} are satisfied, Article \ref{subsubsubsection:fullconsideration} shall not apply to:}}
-  \begin{subindent}
-    \item\textcolor{red}{the transfer of assets to any specified asset-locked body, or (with the consent of the Regulator) to any other asset-locked body; and}
-    \item\label{subsubsubsection:transferrestrictions}\textcolor{red}{The conditions are that the transfer of assets must comply with any restrictions on the transfer of assets for less than full consideration which may be set out elsewhere in the Memorandum and Articles of the Company.}
-  \end{subindent}
+  \subsubsection{\textcolor{red}{Provided the conditions in Article \ref{subsubsubsection:transferrestrictions} are satisfied, Article \ref{subsubsubsection:fullconsideration} shall not apply to:}}  
+  \begin{subindentlist}
+    \item [(a)] \textcolor{red}{the transfer of assets to any specified asset-locked body, or (with the consent of the Regulator) to any other asset-locked body; and}
+    \item [(b)] \label{subsubsubsection:transferrestrictions}\textcolor{red}{The conditions are that the transfer of assets must comply with any restrictions on the transfer of assets for less than full consideration which may be set out elsewhere in the Memorandum and Articles of the Company.}
+  \end{subindentlist}
 % The following sub-section is not highlighted in red, but don't remove this, as it's fundamental to the space's model!
 \subsection{Not For Profit}
 \subsubsection{The Company is not established or conducted for private gain: any surplus or assets are
@@ -136,11 +146,11 @@ used principally for the benefit of the community.}
 
 \subsection{Liability of Members}
 \subsubsection{The liability of each member is limited to £1, being the amount that each member undertakes to contribute to the assets of the Company in the event of its being wound up while they are a member or within one year after they cease to be a member, for:}
-\begin{subindent}
-  \item payment of the Company’s debts and liabilities contracted before they cease to be a member;
-  \item payment of the costs, charges and expenses of winding up; and
-  \item adjustment of the rights of the contributories among themselves.
-\end{subindent}
+\begin{subindentlist}
+  \item [(a)] payment of the Company’s debts and liabilities contracted before they cease to be a member;
+  \item [(b)] payment of the costs, charges and expenses of winding up; and
+  \item [(c)] adjustment of the rights of the contributories among themselves.
+\end{subindentlist}
 
 \subsection{Use of Resources}
 \subsubsection{The Hackerspace shall make no claim and take no responsibility for the projects created by users of the Hackerspace's resources.}
@@ -151,15 +161,15 @@ used principally for the benefit of the community.}
 \section*{Directors' Powers and Responsibilities}
 
 \subsection{Number of Directors}
-\subsubsection{There shall be at most 5 directors.}
+\subsubsection{\label{subsubsection:numdirectors}There shall be at most 5 directors.}
 
 \subsection{Treasurer}
 \subsubsection{One of the Directors shall be the treasurer.}
 \subsubsection{A person elected to be treasurer shall automatically cease to hold that office:}
-\begin{subindent}
+\begin{subindentlist}
   \item If they cease to be a Director; or
   \item If they give to the Hackerspace a notice of resignation from that office, signed by them.
-\end{subindent}
+\end{subindentlist}
 \subsubsection{If the treasurer ceases to hold that office, or the office of Director, the remaining Directors shall appoint a replacement treasurer from amongst their number.}
 
 \subsection{Directors' General Authority}
@@ -171,14 +181,14 @@ used principally for the benefit of the community.}
 
 \subsection{Directors May Delegate}
 \subsubsection{Subject to the Articles, the Directors may delegate any of the powers which are conferred on them under the Articles:}
-\begin{subindent}
+\begin{subindentpara}
     \item to such person or committee;
     \item by such means (including by power of attorney);
     \item to such an extent;
     \item in relation to such matters or territories; and
     \item on such terms and conditions;
     \item as they think fit.
-\end{subindent}
+\end{subindentpara}
 \subsubsection{If the Directors so specify, any such delegation may authorise further delegation of the Directors’ powers by any person to whom they are delegated.}
 \subsubsection{The Directors may revoke any delegation in whole or part, or alter its terms and conditions.}
 
@@ -194,25 +204,25 @@ used principally for the benefit of the community.}
 \subsection{Calling a Directors’ meeting}
 \subsubsection{Two Directors may (and the Secretary, if any, must at the request of two Directors) call a Directors’ meeting.}
 \subsubsection{A Directors’ meeting must be called by at least seven Clear Days’ notice unless either:}
-\begin{subindent}
+\begin{subindentpara}
   \item all the Directors agree; or
   \item urgent circumstances require shorter notice.
-\end{subindent}
+\end{subindentpara}
 \subsubsection{Notice of Directors’ meetings must be given to each Director.}
 \subsubsection{Every notice calling a Directors’ meeting must specify:}
-\begin{subindent}
+\begin{subindentpara}
   \item the place, day and time of the meeting; and
   \item if it is anticipated that Directors participating in the meeting will not be in the same place, how it is proposed that they should communicate with each other during the meeting.
-\end{subindent}
+\end{subindentpara}
 \subsubsection{Notice of Directors’ meetings need not be in Writing.}
 \subsubsection{Notice of Directors’ meetings may be sent by Electronic Means to an Address provided by the Director for the purpose.}
 
 \subsection{Participation in Directors’ meetings}
 \subsubsection{Subject to the Articles, Directors participate in a Directors’ meeting, or part of a Directors’ meeting, when:}
-\begin{subindent}
+\begin{subindentpara}
   \item the meeting has been called and takes place in accordance with the Articles; and
   \item they can each communicate to the others any information or opinions they have on any particular item of the business of the meeting.
-\end{subindent}
+\end{subindentpara}
 \subsubsection{In determining whether Directors are participating in a Directors’ meeting, it is irrelevant where any Director is or how they communicate with each other.}
 \subsubsection{If all the Directors participating in a meeting are not in the same place, they may decide that the meeting is to be treated as taking place wherever any of them is.}
 \subsubsection{The board may, at its discretion, allow any person to attend and speak at a board meeting notwithstanding that they are not a director, but on the basis that they must not participate in decision-making.}
@@ -233,21 +243,21 @@ used principally for the benefit of the community.}
 \subsubsection{\label{subsubsubsection:unanimous}The Directors may take a unanimous decision without a Directors’ meeting by indicating to each other by any means, including without limitation by Electronic Means, that they share a common view on a matter. Such a decision may, but need not, take the form of a resolution in Writing, copies of which have been signed by each Director or to which each Director has otherwise indicated agreement in Writing.}
 
 \subsubsection{\label{subsubsubsection:remotedecision}A decision which is made in accordance with Article \ref{subsubsubsection:unanimous} shall be as valid and effectual as if it had been passed at a meeting duly convened and held, provided the following conditions are complied with:}
-\begin{subindent}
+\begin{subindentpara}
   \item approval from each Director must be received by one person being either such person as all the Directors have nominated in advance for that purpose or such other person as volunteers if necessary (“the Recipient”), which person may, for the avoidance of doubt, be one of the Directors;
   \item following receipt of responses from all of the Directors, the Recipient must communicate to all of the Directors by any means whether the resolution has been formally approved by the Directors in accordance with this Article \ref{subsubsubsection:remotedecision};
   \item the date of the decision shall be the date of the communication from the Recipient confirming formal approval;
   \item the Recipient must prepare a minute of the decision in accordance with the \ref{subsection:minutes}.
-\end{subindent}
+\end{subindentpara}
 \subsection{Conflicts of interest}
 \subsubsection{Whenever a Director finds themselves in a situation that is reasonably likely to give rise to a Conflict of Interest, they must declare their interest to the Directors unless, or except to the extent that, the other Directors are or ought reasonably to be aware of it already.}
 \subsubsection{If any question arises as to whether a Director has a Conflict of Interest, the question shall be decided by a majority decision of the other Directors.}
 \subsubsection{\label{subsubsubsection:directornovote}Whenever a matter is to be discussed at a meeting or decided in accordance with Article \ref{subsubsection:withoutmeeting} and a Director has a Conflict of Interest in respect of that matter then, subject to Article \ref{subsubsection:authconflict}, they must:}
-\begin{subindent}
+\begin{subindentpara}
   \item remain only for such part of the meeting as in the view of the other Directors is necessary to inform the debate;
   \item not be counted in the quorum for that part of the meeting; and
   \item withdraw during the vote and have no vote on the matter.
-\end{subindent}
+\end{subindentpara}
 \subsubsection{When a Director has a Conflict of Interest which they have declared to the Directors, they shall not be in breach of their duties to the Company by withholding confidential information from the Company if to disclose it would result in a breach of any other duty or obligation of confidence owed by them.}
 \subsubsection{\label{subsubsubsection:withdraw}A Director must not vote at a board meeting (or at a meeting of a sub-committee) on any resolution which relates to a matter in which they have a personal interest or duty which conflicts (or may conflict) with the interests of the Hackerspace; they must withdraw from the meeting while an item of that nature is being dealt with.}
 \subsubsection{For the purposes of subsubsection \ref{subsubsubsection:withdraw}: a Director will be deemed to have a personal interest in relation to a particular matter if a body in relation to which they are an Employee, Director, Officer or Elected Representative has an interest in the matter.}
@@ -255,11 +265,11 @@ used principally for the benefit of the community.}
 
 \subsection{\label{subsubsection:authconflict}Directors’ power to authorise a conflict of interest}
 \subsubsection{\label{subsubsubsection:canauth}The Directors have power to authorise a Director to be in a position of Conflict of Interest provided:}
-\begin{subindent}
+\begin{subindentpara}
   \item in relation to the decision to authorise a Conflict of Interest, the conflicted Director must comply with Article \ref{subsubsubsection:directornovote};
   \item in authorising a Conflict of Interest, the Directors can decide the manner in which the Conflict of Interest may be dealt with and, for the avoidance of doubt, they can decide that the Director with a Conflict of Interest can participate in a vote on the matter and can be counted in the quorum;
   \item the decision to authorise a Conflict of Interest can impose such terms as the Directors think fit and is subject always to their right to vary or terminate the authorisation.
-\end{subindent}
+\end{subindentpara}
 \subsubsection{If a matter, or office, employment or position, has been authorised by the Directors in accordance with Article \ref{subsubsubsection:canauth} then, even if they have been authorised to remain at the meeting by the other Directors, the Director may absent themselves from meetings of the Directors at which anything relating to that matter, or that office, employment or position, will or may be discussed.}
 \subsubsection{A Director shall not be accountable to the Company for any benefit which they derive from any matter, or from any office, employment or position, which has been authorised by the Directors in accordance with Article \ref{subsubsubsection:canauth} (subject to any limits or conditions to which such approval was subject).}
 
@@ -282,6 +292,211 @@ used principally for the benefit of the community.}
 \subsubsection{\label{subsection:agmElect}At each AGM, the members may elect any member (unless they are debarred from
 membership under section \ref{subsection:caDisqualified}) to be one of the Directors.}
 \subsubsection{At each AGM, all of the Directors must retire from office, but shall then (subject to section \ref{subsection:3yperiod}) be eligible for re-election under section \ref{subsection:agmElect}.}
-\subsubsection{\label{subsection:3yperiod}A person who has served on the board for a period of 3 years shall automatically vacate office on expiry of that 3-year period, unless there are not enough eligible candidates standing at the AGM to form a board of Directors, as per section \ref{}. In the case of sufficient eligible candidates, a Director stepping down shall not be eligible for re-election until a further year has elapsed.}
+\subsubsection{\label{subsection:3yperiod}A person who has served on the board for a period of 3 years shall automatically vacate office on expiry of that 3-year period, unless there are not enough eligible candidates standing at the AGM to form a board of Directors, as per section \ref{subsubsection:numdirectors}. In the case of sufficient eligible candidates, a Director stepping down shall not be eligible for re-election until a further year has elapsed.}
+\subsubsection{For the purposes of clause \ref{subsection:3yperiod}:}
+\begin{subindentlist}
+    \item [(a)] The period from the date of formation of the Hackerspace to the first AGM shall be deemed to be a period of one year, unless it is of less than 6 months duration (in which case it shall be disregarded);
+    \item [(b)] The period between the date of election of a director and the AGM which next follows shall be deemed to be a period of one year, unless it is of less than six months duration in which case it shall be disregarded;
+    \item [(c)] The period between one AGM and the next shall be deemed to be a period of one year;
+    \item [(d)] A director ceases to hold office but is re-elected to that office within a period of six months, they shall be deemed to have held office as a director continuously.
+\end{subindentlist}
+\subsubsection{A director retiring at an AGM will be deemed to have been re-elected unless:}
+\begin{subindentlist}
+    \item [(a)] They advise the board prior to the conclusion of the AGM that they do not wish to
+be reappointed as a director; or
+    \item [(b)] An election process was held at the AGM and they were not among those elected/re-elected through that process.
+\end{subindentlist}
+
+\subsection{Termination of Directors' appointment}
+\subsubsection{\label{subsubsection:terminateDirector}A person ceases to be a Director as soon as:}
+\begin{subindentlist}
+    \item [(a)] that person ceases to be a Director by virtue of any provision of the Companies Acts, or is prohibited from being a Director by law;
+    \item [(b)] a bankruptcy order is made against that person, or an order is made against that person in individual insolvency proceedings in a jurisdiction other than England and Wales or Northern Ireland which have an effect similar to that of bankruptcy;
+    \item [(c)] a composition is made with that person’s creditors generally in satisfaction of that person’s debts;
+    \item [(d)] the Director ceases to be a member of the Hackerspace;
+    \item [(e)] notification is received by the Company from the Director that the Director is resigning from office, and such resignation has taken effect in accordance with its terms (but only if at least two Directors will remain in office when such resignation has taken effect);
+    \item [(f)] the Director fails to attend three consecutive meetings of the Directors and the Directors resolve that the Director be removed for this reason; or
+    \item [(g)] at a general meeting of the Company, a resolution is passed that the Director be removed from office, provided the meeting has invited the views of the Director concerned and considered the matter in the light of such views.
+\end{subindentlist}
+\subsubsection{A resolution under paragraph \ref{subsubsection:terminateDirector}(g) shall be valid only if:}
+\begin{subindentlist}
+    \item [(a)] The director who is the subject of the resolution is given reasonable prior written notice of the grounds upon which the resolution for their removal is to be proposed;
+    \item [(b)] The director concerned is given the opportunity to address the meeting at which the resolution is proposed, prior to the resolution being put to the vote.
+\end{subindentlist}
+
+\subsection{Register of directors}
+\subsubsection{The board must keep a register of current directors, setting out, for each current director:}
+\begin{subindentlist}
+    \item [(a)] their full name and address;
+    \item [(b)] the date on which they were appointed as a director; and
+    \item [(c)] whether they are the treasurer.
+\end{subindentlist}
+\subsubsection{The board must keep a register of former directors for at least 6 years from the date on which they ceased to be a director:}
+\begin{subindentlist}
+    \item [(a)] the name of the director;
+    \item [(b)] whether they were the treasurer; and
+    \item [(c)] the date on which they ceased to be a director.
+\end{subindentlist}
+\subsubsection{The board must ensure that the registers of current and former directors is updated within 28 days of any change:}
+\begin{subindentlist}
+    \item [(a)] which arises from a resolution of the board of Directors, or a resolution passed by members of the Hackerspace; or
+    \item [(b)] which is notified to the Hackerspace.
+\end{subindentlist}
+
+\subsection{Directors’ remuneration}
+\subsubsection{Directors may undertake any services for the Company that the Directors decide.}
+\subsubsection{Subject to the Articles, a Director may not be remunerated.}
+
+\subsection{Directors’ expenses}
+\subsubsection{The Company may pay any reasonable expenses which the Directors properly incur in connection with their attendance at:}
+\begin{subindentlist}
+    \item [(a)] meetings of Directors or committees of Directors;
+    \item [(b)] general meetings; or
+    \item [(c)] separate meetings of any class of members or of the holders of any debentures of the Company,
+\end{subindentlist}
+\subsubsection{or otherwise in connection with the exercise of their powers and the discharge of their responsibilities in relation to the Company.}
+
+\section*{Members}
+\section*{Becoming and Ceasing to be a Member}
+
+\subsection{General}
+\subsubsection{A member shall be permitted to attend any physical workspaces at any time, to make use of all of the Hackerspace's resources, and to accompany guests.}
+
+\subsection{Qualifications for membership}
+\subsubsection{Membership is open to any individual aged 16 or over.}
+
+\subsection{Becoming a member}
+\subsubsection{The subscribers to the Memorandum are the first members of the Company.}
+\subsubsection{Such other persons as are admitted to membership in accordance with the Articles shall be members of the Company.}
+\subsubsection{No person shall be admitted a member of the Company unless he or she is approved by the Directors.}
+\subsubsection{Every person who wishes to become a member shall deliver to the Company an application for membership in such form (and containing such information) as the Directors require and executed by the member.} % todo is this executed by the member? this was him or her before
+\subsubsection{The Directors must notify each applicant for membership promptly (in Writing, including by Electronic Means) of its decision on whether or not to admit them to membership.}
+\subsubsection{Members must be a physical person. Organisations are not eligible for membership.}
+
+\subsection{Membership subscription}
+\subsubsection{Members shall be required to pay a monthly membership subscription, unless granted exemption by the Directors.}
+\subsubsection{A person who ceases (for whatever reason) to be a member shall not be entitled to any refund of the membership subscription.}
+
+\subsection{Termination of membership}
+\subsubsection{Membership is not transferable to anyone else.}
+\subsubsection{Membership is terminated if:}
+\begin{subindentpara}
+    
+    \item the member dies or ceases to exist;
+    \item otherwise in accordance with the Articles;
+    \item the member fails to pay the membership subscription for more than 3 months, and has not been granted an exemption by the Directors;
+    \item the member notifies the Hackerspace, via any means on which a director may be reached (in writing, including by Electronic Means) that they wish to cease to be a member; in which case, the member ceases to be a member from the time when the notice is received;
+    \item the member is expelled by way of a resolution passed by not less than two thirds of those present and voting at a general meeting, providing the following procedures have been observed: 
+    \begin{subindentlist}
+        \item at least 21 days notice of the intention to propose the resolution must be given to the member concerned, specifying the grounds for the proposed expulsion; or
+        \item the member concerned will be entitled to be heard on the resolution at the general meeting at which the resolution is proposed
+    \end{subindentlist}
+    \item or;
+    \item the Directors may temporarily suspend any member from access to the Hackerspace's resources, if the behaviour of that member is deemed by the Directors to be unacceptable to the Hackerspace. Suspension will continue until either the Directors reverse the suspension, or an expulsion resolution is heard. The suspended member has the right to propose an expulsion resolution. A member expelled by such a resolution will nevertheless remain liable to pay to the Company any subscription or other sum owed by that member.
+\end{subindentpara}
+\subsubsection{Upon ceasing to be a member, all means of access to the Hackerspace, including but not limited to keys and access tokens, must be returned to the Hackerspace.}
+
+\section*{Organisation of General Meetings}
+\subsection{General meetings}
+\subsubsection{The Directors may call a general meeting at any time.}
+\subsubsection{The Directors must call a general meeting if required to do so by the members under the Companies Acts, or by one third of the membership.}
+
+\subsection{Length of notice} % todo: check what format this should be in (one subindent, or two subsubsections?)
+\subsubsection{All general meetings must be called by either:}
+\begin{subindentpara}
+    \item at least 14 Clear Days’ notice; or
+    \item shorter notice if it is so agreed by a majority of the members having a right to attend and vote at that meeting. Any such majority must together represent at least one third of the total voting rights at that meeting of all the members.
+\end{subindentpara}
+
+\subsection{Contents of notice}
+\subsubsection{Every notice calling a general meeting must specify the place, day and time of the meeting, whether it is a general or an annual general meeting, and the general nature of the business to be transacted.}
+\subsubsection{If a special resolution is to be proposed, the notice must include the proposed resolution and specify that it is proposed as a special resolution.}
+\subsubsection{In every notice calling a meeting of the Company there must appear with reasonable prominence a statement informing the member of their rights to appoint another person as their proxy at a general meeting.}
+
+\subsection{Service of notice}
+\subsubsection{Notice of general meetings must be given to every member and to the Directors of the Company.}
+\subsubsection{Any notice which requires to be given to a member under these articles must be sent by email to the member, at the email address kept on the register of members.}
+
+\subsection{Attendance and speaking at general meetings}
+\subsubsection{A person is able to exercise the right to speak at a general meeting when that person is in a position to communicate to all those attending the meeting, during the meeting, any information or opinions which that person has on the business of the meeting.}
+\subsubsection{A person is able to exercise the right to vote at a general meeting when:}
+\begin{subindentpara}
+    \item that person is able to vote, during the meeting, on resolutions put to the vote at the meeting; and
+    \item that person’s vote can be taken into account in determining whether or not such resolutions are passed at the same time as the votes of all the other persons attending the meeting.
+\end{subindentpara}
+\subsubsection{The Directors may make whatever arrangements they consider appropriate to enable those attending a general meeting to exercise their rights to speak or vote at it.}
+\subsubsection{In determining attendance at a general meeting, it is immaterial whether any two or more members attending it are in the same place as each other.}
+\subsubsection{Two or more persons who are not in the same place as each other attend a general meeting if their circumstances are such that if they have (or were to have) rights to speak and vote at that meeting, they are (or would be) able to exercise them.}
+
+\subsection{Quorum for general meetings}
+\subsubsection{No business (other than the appointment of the chair of the meeting) may be transacted at any general meeting unless a quorum is present.}
+\subsubsection{Ten persons entitled to vote on the business to be transacted (each being a member, a proxy for a member); or one half of the total membership (represented in person or by proxy), whichever is fewer, shall be a quorum.}
+\subsubsection{If a quorum is not present within half an hour from the time appointed for the meeting, the meeting shall stand adjourned to the same day in the next week at the same time and place, or to such time and place as the Directors may determine, and if at the adjourned meeting a quorum is not present within half an hour from the time appointed for the meeting those present and entitled to vote shall be a quorum.}
+
+\subsection{Chairing general meetings}
+\subsubsection{\label{subsubsection:nomChair}The Chair (if any) or in their absence some other Director nominated by the Directors will preside as chair of every general meeting.}
+\subsubsection{If neither the Chair nor such other Director nominated in accordance with Article \ref{subsubsection:nomChair} (if any) is present within half an hour after the time appointed for holding the meeting and willing to act, the Directors present shall elect one of their number to chair the meeting and, if there is only one Director present and willing to act, they shall be chair of the meeting.}
+\subsubsection{If no Director is willing to act as chair of the meeting, or if no Director is present within half an hour after the time appointed for holding the meeting, the members present in person or by proxy and entitled to vote must choose one of their number to be chair of the meeting, save that a proxy holder who is not a member entitled to vote shall not be entitled to be appointed chair of the meeting.}
+
+\subsection{Attendance and speaking by non-members}
+\subsubsection{The chair of the meeting may permit other persons who are not members of the Company to attend and speak at a general meeting.}
+
+\subsection{Adjournment}
+\subsubsection{The chair of the meeting may adjourn a general meeting at which a quorum is present if:}
+\begin{subindentpara}
+    \item the meeting consents to an adjournment; or
+    \item it appears to the chair of the meeting that an adjournment is necessary to protect the safety of any person attending the meeting or ensure that the business of the meeting is conducted in an orderly manner.
+\end{subindentpara}
+\subsubsection{The chair of the meeting must adjourn a general meeting if directed to do so by the meeting.}
+\subsubsection{When adjourning a general meeting, the chair of the meeting must:}
+\begin{subindentpara}
+    \item either specify the time and place to which it is adjourned or state that it is to continue at a time and place to be fixed by the Directors; and
+    \item have regard to any directions as to the time and place of any adjournment which have been given by the meeting.
+\end{subindentpara}
+\subsubsection{If the continuation of an adjourned meeting is to take place more than 14 days after it was adjourned, the Company must give at least seven Clear Days’ notice of it:}
+\begin{subindentpara}
+    \item to the same persons to whom notice of the Company’s general meetings is required to be given; and
+    \item containing the same information which such notice is required to contain.
+\end{subindentpara}
+\subsubsection{No business may be transacted at an adjourned general meeting which could not properly have been transacted at the meeting if the adjournment had not taken place.}
+
+\section*{Voting at General Meetings}
+\subsection{General}
+\subsubsection{A resolution put to the vote of a general meeting must be decided on a show of hands unless a poll is duly demanded in accordance with the Articles.}
+\subsubsection{\label{subsubsection:nonmemberVoting}A person who is not a member of the Company shall not have any right to vote at a general meeting of the Company; but this is without prejudice to any right to vote on a resolution affecting the rights attached to a class of the Company’s debentures.}
+\subsubsection{Article \ref{subsubsection:nonmemberVoting} shall not prevent a person who is a proxy for a member from voting at a general meeting of the Company.}
+
+\subsection{Votes}
+\subsubsection{On a vote on a resolution on a show of hands at a meeting every person present in person (whether a member or a proxy for a member) and entitled to vote shall have a maximum of one vote.}
+\subsubsection{On a vote on a resolution on a poll at a meeting every member present in person or by proxy shall have one vote.}
+\subsubsection{In the case of an equality of votes, whether on a show of hands or on a poll, the chair of the meeting shall not be entitled to a casting vote in addition to any other vote they may have.}
+\subsubsection{No member shall be entitled to vote at any general meeting unless all monies presently payable by that member to the Company have been paid.}
+\subsubsection{Any resolution concerning expulsion or termination of a membership must be taken by secret ballot.}
+
+\subsection{Poll votes}
+\subsubsection{A poll on a resolution may be demanded:}
+\begin{subindentpara}
+    \item in advance of the general meeting where it is to be put to the vote; or
+    \item at a general meeting, either before a show of hands on that resolution or immediately after the result of a show of hands on that resolution is declared.
+\end{subindentpara}
+\subsubsection{A poll may be demanded by:}
+\begin{subindentpara}
+    \item the chair of the meeting;
+    \item the Directors;
+    \item two or more persons having the right to vote on the resolution;
+    \item any person, who, by virtue of being appointed proxy for one or more members having the right to vote at the meeting, holds two or more votes; or
+    \item a person or persons representing not less than one tenth of the total voting rights of all the members having the right to vote on the resolution.
+\end{subindentpara}
+\subsubsection{A demand for a poll may be withdrawn if:}
+\begin{subindentpara}
+    \item the poll has not yet been taken; and
+    \item the chair of the meeting consents to the withdrawal.
+\end{subindentpara}
+\subsubsection{Polls must be taken immediately and in such manner as the chair of the meeting directs.}
+
+\subsection{Errors and disputes}
+\subsubsection{No objection may be raised to the qualification of any person voting at a general meeting except at the meeting or adjourned meeting at which the vote objected to is tendered, and every vote not disallowed at the meeting is valid.}
+\subsubsection{Any such objection must be referred to the chair of the meeting whose decision is final.}
+
 
 \end{document}
