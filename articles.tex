@@ -22,16 +22,16 @@
 %' the only thing which changes is the colour.
 \usepackage{xcolor}
 
-% Links to article references
+% Links to/labeling article references
 %'
 %' There was an error which we encountered when using hyperref, instead
-%' of simple \link calls and \ref. Specifically, if we defined the \link
-%' call *inside* the section title, e.g.,
-%''     section{Artisan abacuses, slide rules\link{section:bestabacus}},
+%' of simple \label calls and \ref. Specifically, if we defined the
+%' \label call *inside* the section title, e.g.,
+%''     section{Artisan abacuses, slide rules\label{section:bestabacus}},
 %' instead of outside of it, e.g.,
-%''     section {Artisan abacuses, slide rules} \link{section:bestabacus}
+%''     section {Artisan abacuses, slide rules} \label{section:bestabacus}
 %' there would occasionally be a warning (*not* an error) thrown that the
-%' link was multiply-defined.
+%' label was multiply-defined.
 %'
 %' Although this was obviously not true, it seemed fairly inoccuous,
 %' and would work fine with regular \ref.
@@ -43,8 +43,8 @@
 %'' https://tex.stackexchange.com/questions/655078/hyperref-why-am-i-getting-a-fatal-tex-capacity-exceeded-error
 %'
 %' However, this was very difficult to reproduce, and usually compiling the
-%' document twice would get the links right. There were occasional issues
-%' with the links not coming up [the first time] or being linked to the
+%' document twice would get the label right. There were occasional issues
+%' with the labels not coming up [the first time] or being linked to the
 %' wrong section, but similarly, these were difficult to reproduce.
 %' This seems to be partly related to the TeX design, in particular, as
 %' far as I recall, it is fairly common to have to recompile LaTeX
@@ -52,7 +52,7 @@
 %' on of build artefacts, or similar.
 %'
 %' The solution is as follows:
-%'' 1. Define \link calls *following* the section declaration, i.e. as
+%'' 1. Define \label calls *following* the section declaration, i.e. as
 %''    if they are text relating to the section!
 %'' 2. Use latexmk(1) or rubber(1) to compile the document. Both of these
 %''    seem to do the right number of passes, and after making sure that
