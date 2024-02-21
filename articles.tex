@@ -21,30 +21,59 @@
 %' list or section. It also seems to affect the indentation, even though
 %' the only thing which changes is the colour.
 \usepackage{xcolor}
+
 % Links to article references
 %'
-%' We may want to have more informative links than "Article X.Y",
-%' e.g. "Article 64.1 (Minutes)". Although there is a link in the PDF,
-%' it makes it much more readable if we can have this.
-%' This is something which only hyperref supports as far as I know.
-% Initial attempt to extract the short title, but it seems that it's not necessary
-% if the \ref call is well-defined
-% Note that these get tripped up on recursive/nested links! Nasty!
-%\makeatletter
-%\newcommand*\referencetitle[1]{\def\@currentlabelname{#1}}
-%\makeatother
-%
+%' There was an error which we encountered when using hyperref, instead
+%' of simple \link calls and \ref. Specifically, if we defined the \link
+%' call *inside* the section title, e.g.,
+%''     section{Artisan abacuses, slide rules\link{section:bestabacus}},
+%' instead of outside of it, e.g.,
+%''     section {Artisan abacuses, slide rules} \link{section:bestabacus}
+%' there would occasionally be a warning (*not* an error) thrown that the
+%' link was multiply-defined.
+%'
+%' Although this was obviously not true, it seemed fairly inoccuous,
+%' and would work fine with regular \ref.
+%' However, with hyperref, which we use below to get both the section
+%' number and the shortened TOC section name (in brackets), there would
+%' be bizarre failures. These included messages about TeX capacity,
+%' which seemed to be related to crossreferencing and hyperref, e.g.
+%' see the following:
+%'' https://tex.stackexchange.com/questions/655078/hyperref-why-am-i-getting-a-fatal-tex-capacity-exceeded-error
+%'
+%' However, this was very difficult to reproduce, and usually compiling the
+%' document twice would get the links right. There were occasional issues
+%' with the links not coming up [the first time] or being linked to the
+%' wrong section, but similarly, these were difficult to reproduce.
+%' This seems to be partly related to the TeX design, in particular, as
+%' far as I recall, it is fairly common to have to recompile LaTeX
+%' documents in several passes, and there is some sort of caching going
+%' on of build artefacts, or similar.
+%'
+%' The solution is as follows:
+%'' 1. Define \link calls *following* the section declaration, i.e. as
+%''    if they are text relating to the section!
+%'' 2. Use latexmk(1) or rubber(1) to compile the document. Both of these
+%''    seem to do the right number of passes, and after making sure that
+%''    we follow (1) above, both 'settle' on a document after a number
+%''    of passes, where they didn't before.
+%'
+%' A further point of interest (which made no difference) is that it
+%' seems that certain packages must absolutely be loaded *after*
+%' hyperref. This includes geometry, e.g. see the following:
+%'' https://tex.stackexchange.com/questions/1863/which-packages-should-be-loaded-after-hyperref-instead-of-before
+
+% These are fairly arbitrary.
 \def\sectionautorefname{Section}
 \def\subsectionautorefname{Article}
 \def\subsubsectionautorefname{Clause}
-%
+
 % This command works but there's no link, just the text!
 %\newcommand*{\ref}[1]{\autoref*{#1} (\nameref*{#1})}
-%
 % Mostly working, just neeeded to add brackets around the \nameref call
 % https://tex.stackexchange.com/questions/121865/nameref-how-to-display-section-name-and-its-number
 \newcommand*{\fancyref}[1]{\hyperref[{#1}]{\autoref*{#1} (\nameref*{#1})}}
-%
 
 % Custom section numbering
 %'
@@ -143,13 +172,13 @@
 \subsubsection{\textcolor{red}{The Company is to be a community interest company.}}
 % The following sub-section is highlighted in red in template: Fundamental to C.I.C. operation!
 \subsection{Asset Lock}
-  \subsubsection[Full consideration of assets]{\label{subsubsubsection:fullconsideration}\textcolor{red}{The Company shall not transfer any of its assets other than for full consideration.}}
-  \subsubsection{\textcolor{red}{Provided the conditions in \fancyref{subsubsection:metaassetrestr} are satisfied, \fancyref{subsubsubsection:fullconsideration} shall not apply to:}}  
+  \subsubsection[Full consideration of assets]{\textcolor{red}{The Company shall not transfer any of its assets other than for full consideration.}}\label{subsubsubsection:fullconsideration}
+  \subsubsection{\textcolor{red}{Provided the conditions in \fancyref{subsubsection:metaassetrestr} are satisfied, \fancyref{subsubsubsection:fullconsideration} shall not apply to:}}\label{subsubsection:transferrestrictions}
   \begin{subindentlist}
     \item [(a)] \textcolor{red}{the transfer of assets to any specified asset-locked body, or (with the consent of the Regulator) to any other asset-locked body; and}
-    \item [(b)] \label{subsubsubsection:transferrestrictions}\textcolor{red}{The conditions are that the transfer of assets must comply with any restrictions on the transfer of assets for less than full consideration which may be set out elsewhere in the Memorandum and Articles of the Company.}
+    \item [(b)] \textcolor{red}{The conditions are that the transfer of assets must comply with any restrictions on the transfer of assets for less than full consideration which may be set out elsewhere in the Memorandum and Articles of the Company.}
   \end{subindentlist}
-  \subsubsection[Conditions of transfer of assests]{\label{subsubsection:metaassetrestr}The conditions are that the transfer of assets must comply with any restrictions on the transfer of assets for less than full consideration which may be set out elsewhere in the Memorandum and Articles of the Company.}
+  \subsubsection[Conditions of transfer of assests]{The conditions are that the transfer of assets must comply with any restrictions on the transfer of assets for less than full consideration which may be set out elsewhere in the Memorandum and Articles of the Company.}\label{subsubsection:metaassetrestr}
 % The following sub-section is not highlighted in red, but don't remove this, as it's fundamental to the space's model!
 \subsection{Not For Profit}
 \subsubsection{The Company is not established or conducted for private gain: any surplus or assets are
@@ -180,7 +209,7 @@ used principally for the benefit of the community.}
 \section*{Directors' Powers and Responsibilities}
 
 \subsection{Number of Directors}
-\subsubsection{\label{subsubsection:numdirectors}There shall be at most 5 directors.}
+\subsubsection{There shall be at most 5 directors.}\label{subsubsection:numdirectors}
 
 \subsection{Treasurer}
 \subsubsection{One of the Directors shall be the treasurer.}
@@ -258,10 +287,10 @@ used principally for the benefit of the community.}
 \subsection{Decision making at a meeting}
   \subsubsection{\textcolor{red}{Questions arising at a Directors' meeting shall be decided by a majority of votes.}}
   \subsubsection{\textcolor{red}{In all proceedings of Directors each Director must not have more than one vote.}}
-\subsection{\label{subsubsection:withoutmeeting}Decisions without a meeting}
-\subsubsection[Directors' unanimous decisions by other means]{\label{subsubsubsection:unanimous}The Directors may take a unanimous decision without a Directors' meeting by indicating to each other by any means, including without limitation by Electronic Means, that they share a common view on a matter. Such a decision may, but need not, take the form of a resolution in Writing, copies of which have been signed by each Director or to which each Director has otherwise indicated agreement in Writing.}
+\subsection{Decisions without a meeting}\label{subsubsection:withoutmeeting}
+\subsubsection[Directors' unanimous decisions by other means]{The Directors may take a unanimous decision without a Directors' meeting by indicating to each other by any means, including without limitation by Electronic Means, that they share a common view on a matter. Such a decision may, but need not, take the form of a resolution in Writing, copies of which have been signed by each Director or to which each Director has otherwise indicated agreement in Writing.}\label{subsubsubsection:unanimous}
 
-\subsubsection[Directors' remote decision-making]{\label{subsubsubsection:remotedecision}A decision which is made in accordance with \fancyref{subsubsubsection:unanimous} shall be as valid and effectual as if it had been passed at a meeting duly convened and held, provided the following conditions are complied with:}
+\subsubsection[Directors' remote decision-making]{A decision which is made in accordance with \fancyref{subsubsubsection:unanimous} shall be as valid and effectual as if it had been passed at a meeting duly convened and held, provided the following conditions are complied with:}\label{subsubsubsection:remotedecision}
 \begin{subindentpara}
   \item approval from each Director must be received by one person being either such person as all the Directors have nominated in advance for that purpose or such other person as volunteers if necessary (``the Recipient''), which person may, for the avoidance of doubt, be one of the Directors;
   \item following receipt of responses from all of the Directors, the Recipient must communicate to all of the Directors by any means whether the resolution has been formally approved by the Directors in accordance with this \fancyref{subsubsubsection:remotedecision};
@@ -271,19 +300,19 @@ used principally for the benefit of the community.}
 \subsection{Conflicts of interest}
 \subsubsection{Whenever a Director finds themselves in a situation that is reasonably likely to give rise to a Conflict of Interest, they must declare their interest to the Directors unless, or except to the extent that, the other Directors are or ought reasonably to be aware of it already.}
 \subsubsection{If any question arises as to whether a Director has a Conflict of Interest, the question shall be decided by a majority decision of the other Directors.}
-\subsubsection[Directors' participation in meetings and conflict of interest]{\label{subsubsubsection:directornovote}Whenever a matter is to be discussed at a meeting or decided in accordance with \fancyref{subsubsection:withoutmeeting} and a Director has a Conflict of Interest in respect of that matter then, subject to \fancyref{subsubsection:authconflict}, they must:}
+\subsubsection[Directors' participation in meetings and conflict of interest]{Whenever a matter is to be discussed at a meeting or decided in accordance with \fancyref{subsubsection:withoutmeeting} and a Director has a Conflict of Interest in respect of that matter then, subject to \fancyref{subsubsection:authconflict}, they must:}\label{subsubsubsection:directornovote}
 \begin{subindentpara}
   \item remain only for such part of the meeting as in the view of the other Directors is necessary to inform the debate;
   \item not be counted in the quorum for that part of the meeting; and
   \item withdraw during the vote and have no vote on the matter.
 \end{subindentpara}
 \subsubsection{When a Director has a Conflict of Interest which they have declared to the Directors, they shall not be in breach of their duties to the Company by withholding confidential information from the Company if to disclose it would result in a breach of any other duty or obligation of confidence owed by them.}
-\subsubsection[Directors' voting at meetings and conflict of interest]{\label{subsubsubsection:withdraw}A Director must not vote at a board meeting (or at a meeting of a sub-committee) on any resolution which relates to a matter in which they have a personal interest or duty which conflicts (or may conflict) with the interests of the Hackerspace; they must withdraw from the meeting while an item of that nature is being dealt with.}
+\subsubsection[Directors' voting at meetings and conflict of interest]{A Director must not vote at a board meeting (or at a meeting of a sub-committee) on any resolution which relates to a matter in which they have a personal interest or duty which conflicts (or may conflict) with the interests of the Hackerspace; they must withdraw from the meeting while an item of that nature is being dealt with.}\label{subsubsubsection:withdraw}
 \subsubsection{For the purposes of \fancyref{subsubsubsection:withdraw}: a Director will be deemed to have a personal interest in relation to a particular matter if a body in relation to which they are an Employee, Director, Officer or Elected Representative has an interest in the matter.}
 \subsubsection{If, as a result of a Conflict of Interest (and the Directors have not authorised this conflict of interest) quorum at a Directors' meeting cannot be reached, the Directors must defer the decision to the membership by calling an EGM.}
 
-\subsection{\label{subsubsection:authconflict}Directors' power to authorise a conflict of interest}
-\subsubsection[Directors' conflict of interest authorisation]{\label{subsubsubsection:canauth}The Directors have power to authorise a Director to be in a position of Conflict of Interest provided:}
+\subsection{Directors' power to authorise a conflict of interest}\label{subsubsection:authconflict}
+\subsubsection[Directors' conflict of interest authorisation]{The Directors have power to authorise a Director to be in a position of Conflict of Interest provided:}\label{subsubsubsection:canauth}
 \begin{subindentpara}
   \item in relation to the decision to authorise a Conflict of Interest, the conflicted Director must comply with \fancyref{subsubsubsection:directornovote};
   \item in authorising a Conflict of Interest, the Directors can decide the manner in which the Conflict of Interest may be dealt with and, for the avoidance of doubt, they can decide that the Director with a Conflict of Interest can participate in a vote on the matter and can be counted in the quorum;
@@ -298,19 +327,18 @@ used principally for the benefit of the community.}
 \section*{Appointment and Retirement of Directors}
 \subsection{Eligibility}
 \subsubsection{A person will not be eligible for election as a Director, unless they are a member of the Hackerspace.}
-\subsubsection[Members' disqualification from standing as Director]{\label{subsection:caDisqualified}A person will not be eligible for election as a Director, if they are disqualified from being a company director under the Companies Act 2006.}
+\subsubsection[Members' disqualification from standing as Director]{A person will not be eligible for election as a Director, if they are disqualified from being a company director under the Companies Act 2006.}\label{subsection:caDisqualified}
 
 \subsection{Methods of appointing directors}
 \subsubsection{Those persons notified to the Registrar of Companies as the first Directors of the Company shall be the first Directors.}
 \subsubsection{Any person who is willing to act as a Director, and is permitted by law to do so, may be appointed to be a Director by ordinary resolution.}
-\subsubsection[Death of all Members and Directors]{\label{subsection:rip}In any case where, as a result of death, the Company has no members and no Directors, the personal representatives of the last member to have died have the right, by notice in writing, to appoint a person to be a member.}
+\subsubsection[Death of all Members and Directors]{In any case where, as a result of death, the Company has no members and no Directors, the personal representatives of the last member to have died have the right, by notice in writing, to appoint a person to be a member.}\label{subsection:rip}
 \subsubsection{For the purposes of \fancyref{subsection:rip}, where two or more members die in circumstances rendering it uncertain who was the last to die, a younger member is deemed to have survived an older member.}
 
 \subsection{Election, retiral, and re-election}
-\subsubsection[Election of Members as Directors]{\label{subsection:agmElect}At each AGM, the members may elect any member (unless they are debarred from
-membership under \fancyref{subsection:caDisqualified}) to be one of the Directors.}
+\subsubsection[Election of Members as Directors]{At each AGM, the members may elect any member (unless they are debarred from membership under \fancyref{subsection:caDisqualified}) to be one of the Directors.}\label{subsection:agmElect}
 \subsubsection{At each AGM, all of the Directors must retire from office, but shall then (subject to \fancyref{subsection:3yperiod}) be eligible for re-election under \fancyref{subsection:agmElect}.}
-\subsubsection[Directors' nominal 3-year term]{\label{subsection:3yperiod}A person who has served on the board for a period of 3 years shall automatically vacate office on expiry of that 3-year period, unless there are not enough eligible candidates standing at the AGM to form a board of Directors, as per\fancyref{subsubsection:numdirectors}. In the case of sufficient eligible candidates, a Director stepping down shall not be eligible for re-election until a further year has elapsed.}
+\subsubsection[Directors' nominal 3-year term]{A person who has served on the board for a period of 3 years shall automatically vacate office on expiry of that 3-year period, unless there are not enough eligible candidates standing at the AGM to form a board of Directors, as per\fancyref{subsubsection:numdirectors}. In the case of sufficient eligible candidates, a Director stepping down shall not be eligible for re-election until a further year has elapsed.}\label{subsection:3yperiod}
 \subsubsection{For the purposes of \fancyref{subsection:3yperiod}:}
 \begin{subindentlist}
     \item [(a)] the period from the date of formation of the Hackerspace to the first AGM shall be deemed to be a period of one year, unless it is of less than 6 months duration (in which case it shall be disregarded);
@@ -326,7 +354,7 @@ be reappointed as a director; or
 \end{subindentlist}
 
 \subsection{Termination of Directors' appointment}
-\subsubsection[Automatic termination of Directors]{\label{subsubsection:terminateDirector}A person ceases to be a Director as soon as:}
+\subsubsection[Automatic termination of Directors]{A person ceases to be a Director as soon as:}\label{subsubsection:terminateDirector}
 \begin{subindentlist}
     \item [(a)] that person ceases to be a Director by virtue of any provision of the Companies Acts, or is prohibited from being a Director by law;
     \item [(b)] a bankruptcy order is made against that person, or an order is made against that person in individual insolvency proceedings in a jurisdiction other than England and Wales or Northern Ireland which have an effect similar to that of bankruptcy;
@@ -451,7 +479,7 @@ be reappointed as a director; or
 \subsubsection{If a quorum is not present within half an hour from the time appointed for the meeting, the meeting shall stand adjourned to the same day in the next week at the same time and place, or to such time and place as the Directors may determine, and if at the adjourned meeting a quorum is not present within half an hour from the time appointed for the meeting those present and entitled to vote shall be a quorum.}
 
 \subsection{Chairing general meetings}
-\subsubsection[Nominal chairing of general meetings]{\label{subsubsection:nomChair}A Director nominated by the Directors will preside as chair of every general meeting.}
+\subsubsection[Nominal chairing of general meetings]{A Director nominated by the Directors will preside as chair of every general meeting.}\label{subsubsection:nomChair}
 \subsubsection{If neither the Chair nor such other Director nominated in accordance with \fancyref{subsubsection:nomChair} (if any) is present within half an hour after the time appointed for holding the meeting and willing to act, the Directors present shall elect one of their number to chair the meeting and, if there is only one Director present and willing to act, they shall be chair of the meeting.}
 \subsubsection{If no Director is willing to act as chair of the meeting, or if no Director is present within half an hour after the time appointed for holding the meeting, the members present in person or by proxy and entitled to vote must choose one of their number to be chair of the meeting, save that a proxy holder who is not a member entitled to vote shall not be entitled to be appointed chair of the meeting.}
 
@@ -480,7 +508,7 @@ be reappointed as a director; or
 \section*{Voting at General Meetings}
 \subsection{General}
 \subsubsection{A resolution put to the vote of a general meeting must be decided on a show of hands unless a poll is duly demanded in accordance with the Articles.}
-\subsubsection[Only members may vote at general meetings]{\textcolor{red}{\label{subsubsection:nonmemberVoting}A person who is not a member of the Company shall not have any right to vote at a general meeting of the Company; but this is without prejudice to any right to vote on a resolution affecting the rights attached to a class of the Company's debentures.}}
+\subsubsection[Only members may vote at general meetings]{\textcolor{red}{A person who is not a member of the Company shall not have any right to vote at a general meeting of the Company; but this is without prejudice to any right to vote on a resolution affecting the rights attached to a class of the Company's debentures.}} \label{subsubsection:nonmemberVoting}
 \subsubsection{\fancyref{subsubsection:nonmemberVoting} shall not prevent a person who is a proxy for a member from voting at a general meeting of the Company.}
 
 \subsection{Votes}
@@ -550,14 +578,14 @@ be reappointed as a director; or
 \subsubsection{If the chair of the meeting, acting in good faith, wrongly decides that an amendment to a resolution is out of order, the chair's error does not invalidate the vote on that resolution.}
 
 \section*{Written Resolutions}
-\subsection{\label{subsection:reswr}Written resolutions}
+\subsection{Written resolutions}\label{subsection:reswr}
 \subsubsection{Subject to \fancyref{subsubsection:reswrexc}, a written resolution of the Company passed in accordance with this \fancyref{subsection:reswr} shall have effect as if passed by the Company in general meeting:}
 \begin{subindentpara}
     \item a written resolution is passed as an ordinary resolution if it is passed by a simple majority of the total voting rights of eligible members.
     \item a written resolution is passed as a special resolution if it is passed by members representing not less than 75\% of the total voting rights of eligible members. A written resolution is not a special resolution unless it states that it was proposed as a special resolution.
 \end{subindentpara}
 \subsubsection{In relation to a resolution proposed as a written resolution of the Company the eligible members are the members who would have been entitled to vote on the resolution on the circulation date of the resolution.}
-\subsubsection[Directors may not be removed by Written Resolution]{\label{subsubsection:reswrexc}A members' resolution under the Companies Acts removing a Director before the expiration of their term of office may not be passed as a written resolution.}
+\subsubsection[Directors may not be removed by Written Resolution]{A members' resolution under the Companies Acts removing a Director before the expiration of their term of office may not be passed as a written resolution.}\label{subsubsection:reswrexc}
 \subsubsection{A copy of the written resolution must be sent to every member together with a statement informing the member how to signify their agreement to the resolution and the date by which the resolution must be passed if it is not to lapse. Communications in relation to written notices shall be sent to the Company's auditors in accordance with the Companies Acts.}
 \subsubsection{A member signifies their agreement to a proposed written resolution when the Company receives from them an authenticated Document identifying the resolution to which it relates and indicating their agreement to the resolution.}
 \begin{subindentpara}
@@ -576,7 +604,7 @@ be reappointed as a director; or
 \subsection{Irregularities}
 \subsubsection{The proceedings at any meeting or on the taking of any poll or the passing of a written resolution or the making of any decision shall not be invalidated by reason of any accidental informality or irregularity (including any accidental omission to give or any non-receipt of notice) or any want of qualification in any of the persons present or voting or by reason of any business being considered which is not referred to in the notice unless a provision of the Companies Acts specifies that such informality, irregularity or want of qualification shall invalidate it.}
 
-\subsection{\label{subsection:minutes}Minutes}
+\subsection{Minutes}\label{subsection:minutes}
 \subsubsection{The Directors must cause minutes to be made in books kept for the purpose:}
 \begin{subindentpara}
     \item of all appointments of officers made by the Directors;
@@ -600,7 +628,7 @@ be reappointed as a director; or
     \item [(a)] any liability incurred by that Director in connection with any negligence, default, breach of duty or breach of trust in relation to the Company or an associated company;
     \item [(b)] any other liability incurred by that Director as an officer of the Company or an associated company.
 \end{subindentlist}
-\subsubsection[Exceptions to indemnity]{\label{subsubsection:indexc}This Article does not authorise any indemnity which would be prohibited or rendered void by any provision of the Companies Acts or by any other provision of law.}
+\subsubsection[Exceptions to indemnity]{This Article does not authorise any indemnity which would be prohibited or rendered void by any provision of the Companies Acts or by any other provision of law.} \label{subsubsection:indexc}
 \subsubsection{In this Article:}
 \begin{subindentlist}
     \item [(a)] companies are associated if one is a subsidiary of the other or both are subsidiaries of the same body corporate; and
