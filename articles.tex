@@ -9,6 +9,7 @@
 \usepackage[indentafter]{titlesec}
 \usepackage[singlespacing]{setspace}
 \usepackage{changepage}
+\usepackage{ragged2e}
 % Colourisation of certain clauses
 %'
 %' As regards to colour (like red text in the template we used),
@@ -120,6 +121,7 @@
 %' The neat suggestion to use a text box was adapted from the following TeX StackExchange answer: https://tex.stackexchange.com/questions/405372/align-section-with-text-body/405373#405373
 %'
 \def\clauseindent{30pt}
+\def\fakecolour{black}
 
 \titleformat{\section}[runin]% Section to customise
             {\Large\bfseries}% Title text format
@@ -127,8 +129,8 @@
             {0pt}%             Horizontal separation between label/title body
             {}%                Space before title body
             []%                Space after title body
-\titleformat{\subsection}[hang]{\bfseries}{\makebox[\clauseindent][l]{\thesubsection.}}{0pt}{}
-\titleformat{\subsubsection}[hang]{\mdseries}{\makebox[\clauseindent][l]{\thesubsubsection.}}{0pt}{}
+\titleformat{\subsection}[hang]{\raggedright\bfseries}{\makebox[\clauseindent][l]{\thesubsection.}}{0pt}{}
+\titleformat{\subsubsection}[hang]{\raggedright\mdseries}{\makebox[\clauseindent][l]{\thesubsubsection.}}{0pt}{}
 
 % Include unnumbered sections in the TOC
 %'
@@ -154,8 +156,8 @@
 %' don't hang labelled list items!
 %'
 \setlength{\hangingindent}{\clauseindent}
-\newenvironment{subindentpara}{\begin{adjustwidth}{\clauseindent}{}\begin{hanginglist}}{\end{hanginglist}\end{adjustwidth}}
-\newenvironment{subindentlist}{\begin{adjustwidth}{\clauseindent}{}\begin{labeledlist}{\clauseindent}}{\end{labeledlist}\end{adjustwidth}}
+\newenvironment{subindentpara}{\raggedright\begin{adjustwidth}{\clauseindent}{}\begin{hanginglist}}{\end{hanginglist}\end{adjustwidth}}
+\newenvironment{subindentlist}{\raggedright\begin{adjustwidth}{\clauseindent}{}\begin{labeledlist}{\clauseindent}}{\end{labeledlist}\end{adjustwidth}}
 
 \title{Glasgow Hackerspace CIC Articles of Association}
 \date{\today}
@@ -164,35 +166,42 @@
 \newcommand{\companyact}{Companies Act 2006}
 % End of preamble
 
+\usepackage{titling}
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+
 % Helvetica as font
 %\renewcommand\familydefault{\sfdefault}
 
 \begin{document}
 \renewcommand\contentsname{
-    \bfseries\Large{Index to the Articles}\newline
+    \centering\bfseries\Large{Index to the Articles}\newline\justifying
 }
-% \maketitle % todo: add CIC etc
-\tableofcontents
 
-\section*{Interpretation}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\vspace{1.5\baselineskip}\section*{Interpretation}
 \addcontentsline{toc}{section}{Interpretation}
 
 \subsection{Defined Terms}
 \subsubsection[General interpretation of Articles]{The interpretation of these Articles is governed by the provisions set out in the Schedule at end of the Articles.}
 
-\section*{Community Interest Company and Asset Lock}
+\vspace{1.5\baselineskip}\section*{Community Interest Company and Asset Lock}
 \addcontentsline{toc}{section}{Community Interest Company and Asset Lock}
 
 % The following sub-section is highlighted in red in template: Obviously fundamental to C.I.C. operation!
 \subsection{Community Interest Company}
-\subsubsection[Community Interest Company]{\textcolor{red}{The Company is to be a community interest company.}}
+\subsubsection[Community Interest Company]{\textcolor{\fakecolour}{The Company is to be a community interest company.}}
 % The following sub-section is highlighted in red in template: Fundamental to C.I.C. operation!
 \subsection{Asset Lock}
-  \subsubsection[Full Consideration of Assets]{\textcolor{red}{The Company shall not transfer any of its assets other than for full consideration.}}\label{subsubsubsection:fullconsideration}
-  \subsubsection[Specifics of Full Consideration of Assets]{\textcolor{red}{Provided the conditions in \fancyref{subsubsection:metaassetrestr} are satisfied, \fancyref{subsubsubsection:fullconsideration} shall not apply to:}}\label{subsubsection:transferrestrictions}
+  \subsubsection[Full Consideration of Assets]{\textcolor{\fakecolour}{The Company shall not transfer any of its assets other than for full consideration.}}\label{subsubsubsection:fullconsideration}
+  \subsubsection[Specifics of Full Consideration of Assets]{\textcolor{\fakecolour}{Provided the conditions in \fancyref{subsubsection:metaassetrestr} are satisfied, \fancyref{subsubsubsection:fullconsideration} shall not apply to:}}\label{subsubsection:transferrestrictions}
   \begin{subindentlist}
-    \item [(a)] \textcolor{red}{the transfer of assets to any specified asset-locked body, or (with the consent of the Regulator) to any other asset-locked body; and}
-    \item [(b)] \textcolor{red}{The conditions are that the transfer of assets must comply with any restrictions on the transfer of assets for less than full consideration which may be set out elsewhere in the Memorandum and Articles of the Company.}
+    \item [(a)] \textcolor{\fakecolour}{the transfer of assets to any specified asset-locked body, or (with the consent of the Regulator) to any other asset-locked body; and}
+    \item [(b)] \textcolor{\fakecolour}{The conditions are that the transfer of assets must comply with any restrictions on the transfer of assets for less than full consideration which may be set out elsewhere in the Memorandum and Articles of the Company.}
   \end{subindentlist}
   \subsubsection[Conditions of transfer of assests]{The conditions are that the transfer of assets must comply with any restrictions on the transfer of assets for less than full consideration which may be set out elsewhere in the Memorandum and Articles of the Company.}\label{subsubsection:metaassetrestr}
 % The following sub-section is not highlighted in red, but don't remove this, as it's fundamental to the space's model!
@@ -200,7 +209,11 @@
 \subsubsection[Investiture of assets or surplus in community]{The Company is not established or conducted for private gain: any surplus or assets are
 used principally for the benefit of the community.}
 
-\section*{Objects, Powers and Limitation of Liability}
+% New page is here because for some reason, Objects, Powers &c. has a
+% new page afterwards, despite not setting one.
+% Instead, manually set one before it, which conveniently moves it down
+% to the text below.
+\vspace{1.5\baselineskip}\newpage\section*{Objects, Powers and Limitation of Liability}
 \addcontentsline{toc}{section}{Objects, Powers and Limitation of Liability}
 
 \subsection{Objects}
@@ -222,9 +235,9 @@ used principally for the benefit of the community.}
 \subsubsection[Use of the resources is at user's own risk]{Use of the Hackerspace's facilities and equipment shall be at the user's own risk.}
 \subsubsection[The Hackerspace is not liable]{The Hackerspace shall not be held responsible nor liable for any actions or behaviour of individuals or groups, whether members or guests.}
 
-\section*{Directors}
+\newpage\section*{Directors}
 \addcontentsline{toc}{section}{Directors}
-\section*{Directors' Powers and Responsibilities}
+\vspace{1.5\baselineskip}\section*{Directors' Powers and Responsibilities}
 \addcontentsline{toc}{section}{Directors' Powers and Responsibility}
 
 \subsection{Number of Directors}
@@ -234,8 +247,8 @@ used principally for the benefit of the community.}
 \subsubsection{One of the Directors shall be the treasurer.}
 \subsubsection[Automatic termination of Treasurer]{A person elected to be treasurer shall automatically cease to hold that office:}
 \begin{subindentlist}
-  \item if they cease to be a Director; or
-  \item if they give to the Hackerspace a notice of resignation from that office, signed by them.
+  \item [(a)] if they cease to be a Director; or
+  \item [(b)] if they give to the Hackerspace a notice of resignation from that office, signed by them.
 \end{subindentlist}
 \subsubsection[Replacement treasurer must be appointed]{If the treasurer ceases to hold that office, or the office of Director, the remaining Directors shall appoint a replacement treasurer from amongst their number.}
 
@@ -263,7 +276,7 @@ used principally for the benefit of the community.}
 \subsubsection[Committees must comply with procedures]{Committees to which the Directors delegate any of their powers must follow procedures which are based as far as they are applicable on those provisions of the Articles which govern the taking of decisions by Directors.}
 \subsubsection[Rules of procedure prevail]{The Directors may make rules of procedure for all or any committees, which prevail over rules derived from the Articles if they are not consistent with them.}
 
-\section*{Decision-Making by Directors}
+\vspace{1.5\baselineskip}\section*{Decision-Making by Directors}
 \addcontentsline{toc}{section}{Decision-Making by Directors}
 
 \subsection{Directors to take decisions collectively}
@@ -305,8 +318,8 @@ used principally for the benefit of the community.}
 
 % The following sub-section is highlighted in red in template:
 \subsection{Decision making at a meeting}
-  \subsubsection[Majority voting at a Directors' meeting]{\textcolor{red}{Questions arising at a Directors' meeting shall be decided by a majority of votes.}}
-  \subsubsection[A given Director has only one vote at a Director's meeting]{\textcolor{red}{In all proceedings of Directors each Director must not have more than one vote.}}
+  \subsubsection[Majority voting at a Directors' meeting]{\textcolor{\fakecolour}{Questions arising at a Directors' meeting shall be decided by a majority of votes.}}
+  \subsubsection[A given Director has only one vote at a Director's meeting]{\textcolor{\fakecolour}{In all proceedings of Directors each Director must not have more than one vote.}}
 \subsection{Decisions without a meeting}\label{subsubsection:withoutmeeting}
 \subsubsection[Directors' unanimous decisions by other means]{The Directors may take a unanimous decision without a Directors' meeting by indicating to each other by any means, including without limitation by Electronic Means, that they share a common view on a matter. Such a decision may, but need not, take the form of a resolution in Writing, copies of which have been signed by each Director or to which each Director has otherwise indicated agreement in Writing.}\label{subsubsubsection:unanimous}
 
@@ -344,7 +357,7 @@ used principally for the benefit of the community.}
 \subsection{Register of Directors' interests}
 \subsubsection[Specifics of register of Directors' interests]{The Directors shall cause a register of Directors' interests to be kept. A Director must declare the nature and extent of any interest, direct or indirect, which they have in a proposed transaction or arrangement with the Company or in any transaction or arrangement entered into by the Company which has not previously been declared.}
 
-\section*{Appointment and Retirement of Directors}
+\newpage\section*{Appointment and Retirement of Directors}
 \addcontentsline{toc}{section}{Appointment and Retirement of Directors}
 
 \subsection{Eligibility}
@@ -431,9 +444,9 @@ be reappointed as a director; or
 \end{subindentlist}\begin{adjustwidth}{\clauseindent}{}
 or otherwise in connection with the exercise of their powers and the discharge of their responsibilities in relation to the Company.\end{adjustwidth}
 
-\section*{Members}
+\newpage\section*{Members}
 \addcontentsline{toc}{section}{Members}
-\section*{Becoming and Ceasing to be a Member}
+\vspace{1.5\baselineskip}\section*{Becoming and Ceasing to be a Member}
 \addcontentsline{toc}{section}{Becoming and Ceasing to be a Member}
   
 \subsection{General}
@@ -443,10 +456,10 @@ or otherwise in connection with the exercise of their powers and the discharge o
 \subsubsection{Membership is open to any individual aged 16 or over.}
 
 \subsection{Becoming a member}
-\subsubsection[First Members of the Company]{\textcolor{red}{The subscribers to the Memorandum are the first Members of the Company.}}
-\subsubsection[Members are admitted in accordance with Articles]{\textcolor{red}{Such other persons as are admitted to membership in accordance with the Articles shall be Members of the Company.}}
-\subsubsection[Potential Members must be approved by Directors]{\textcolor{red}{No person shall be admitted a member of the Company unless they are approved by the Directors.}}
-\subsubsection[Potential Members must apply for membership]{\textcolor{red}{Every person who wishes to become a Member shall deliver to the Company an application for membership in such form (and containing such information) as the Directors require and executed by the Member.}} % todo is this executed by the member? this was him or her before
+\subsubsection[First Members of the Company]{\textcolor{\fakecolour}{The subscribers to the Memorandum are the first Members of the Company.}}
+\subsubsection[Members are admitted in accordance with Articles]{\textcolor{\fakecolour}{Such other persons as are admitted to membership in accordance with the Articles shall be Members of the Company.}}
+\subsubsection[Potential Members must be approved by Directors]{\textcolor{\fakecolour}{No person shall be admitted a member of the Company unless they are approved by the Directors.}}
+\subsubsection[Potential Members must apply for membership]{\textcolor{\fakecolour}{Every person who wishes to become a Member shall deliver to the Company an application for membership in such form (and containing such information) as the Directors require and executed by the Member.}} % todo is this executed by the member? this was him or her before
 \subsubsection[Directors must notify potential Members of a decision]{The Directors must notify each applicant for membership promptly (in Writing, including by Electronic Means) of its decision on whether or not to admit them to membership.} % Not red in original document
 \subsubsection[Members may not be organisations]{Members must be a physical person. Organisations are not eligible for membership.} % Not red in template
 
@@ -458,8 +471,8 @@ or otherwise in connection with the exercise of their powers and the discharge o
 \subsubsection{Membership is not transferable to anyone else.}
 \subsubsection[Specifics of termination of membership]{Membership is terminated if:}
 \begin{subindentpara}
-    \item \textcolor{red}{the Member dies or ceases to exist;}
-    \item \textcolor{red}{otherwise in accordance with the Articles;}
+    \item \textcolor{\fakecolour}{the Member dies or ceases to exist;}
+    \item \textcolor{\fakecolour}{otherwise in accordance with the Articles;}
     \item the Member fails to pay the membership subscription for more than 3 months, and has not been granted an exemption by the Directors;
     \item the Member notifies the Hackerspace, via any means on which a director may be reached (in writing, including by Electronic Means) that they wish to cease to be a member; in which case, the Member ceases to be a Member from the time when the notice is received;
     \item the Member is expelled by way of a resolution passed by not less than two thirds of those present and voting at a general meeting, providing the following procedures have been observed: 
@@ -472,7 +485,7 @@ or otherwise in connection with the exercise of their powers and the discharge o
 \end{subindentpara}
 \subsubsection[Return of keys upon membership termination]{Upon ceasing to be a Member, all means of access to the Hackerspace, including but not limited to keys and access tokens, must be returned to the Hackerspace.}
 
-\section*{Organisation of General Meetings}
+\vspace{1.5\baselineskip}\section*{Organisation of General Meetings}
 \addcontentsline{toc}{section}{Organisation of General Meetings}
 
 \subsection{General meetings}
@@ -542,12 +555,12 @@ or otherwise in connection with the exercise of their powers and the discharge o
 \end{subindentpara}
 \subsubsection[Adjourned meetings work like non-adjourned meetings]{No business may be transacted at an adjourned general meeting which could not properly have been transacted at the meeting if the adjournment had not taken place.}
 
-\section*{Voting at General Meetings}
+\vspace{1.5\baselineskip}\section*{Voting at General Meetings}
 \addcontentsline{toc}{section}{Voting at General Meetings}
 
 \subsection{General}
 \subsubsection{A resolution put to the vote of a general meeting must be decided on a show of hands unless a poll is duly demanded in accordance with the Articles.}
-\subsubsection[Only Members may vote at general meetings]{\textcolor{red}{A person who is not a member of the Company shall not have any right to vote at a general meeting of the Company; but this is without prejudice to any right to vote on a resolution affecting the rights attached to a class of the Company's debentures.}} \label{subsubsection:nonmemberVoting}
+\subsubsection[Only Members may vote at general meetings]{\textcolor{\fakecolour}{A person who is not a member of the Company shall not have any right to vote at a general meeting of the Company; but this is without prejudice to any right to vote on a resolution affecting the rights attached to a class of the Company's debentures.}} \label{subsubsection:nonmemberVoting}
 \subsubsection[Proxies may vote on Members' behalf]{\fancyref{subsubsection:nonmemberVoting} shall not prevent a person who is a proxy for a member from voting at a general meeting of the Company.}
 
 \subsection{Votes}
@@ -616,7 +629,7 @@ or otherwise in connection with the exercise of their powers and the discharge o
 \end{subindentpara}
 \subsubsection[Amendments wrongly considered out of order]{If the chair of the meeting, acting in good faith, wrongly decides that an amendment to a resolution is out of order, the chair's error does not invalidate the vote on that resolution.}
 
-\section*{Written Resolutions}
+\vspace{1.5\baselineskip}\section*{Written Resolutions}
 \addcontentsline{toc}{section}{Written Resolutions}
 
 \subsection{Written resolutions}\label{subsection:reswr}
@@ -636,7 +649,7 @@ or otherwise in connection with the exercise of their powers and the discharge o
 \subsubsection[Passing of Written Resolutions]{A Written Resolution is passed when the required majority of eligible Members have signified their agreement to it.}
 \subsubsection[Lapsing of Written Resolutions]{A proposed Written Resolution lapses if it is not passed within 28 days beginning with the circulation date.}
 
-\section*{Administrative Arrangements and Miscellaneous}
+\newpage\section*{Administrative Arrangements and Miscellaneous}
 \addcontentsline{toc}{section}{Administrative Arrangements and Miscellaneous}
 
 \subsection{Means of communication to be used}
