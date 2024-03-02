@@ -79,7 +79,7 @@
 % https://tex.stackexchange.com/questions/121865/nameref-how-to-display-section-name-and-its-number
 \newcommand*{\fancyref}[1]{\hyperref[{#1}]{\autoref*{#1} (\nameref*{#1})}}
 
-% Custom section numbering
+% Custom section numbering and metadata
 %'
 %' This bit was really annoying, basically we treat sections as top-level
 %' titles like in the Book document class. We don't want to number them.
@@ -91,6 +91,14 @@
 %'
 %' Partly via: https://tex.stackexchange.com/questions/80113/hide-section-numbers-but-keep-numbering/80114#80114
 \makeatletter
+\AtBeginDocument{
+  \hypersetup{
+    colorlinks = false,
+    linkbordercolor = {cyan},
+    pdftitle = {\@title},
+    pdfauthor = {Glasgow Hackerspace CIC},
+  }
+}
 \renewcommand\thesection{\@arabic\c@section}
 \renewcommand\thesubsection{\@arabic\c@subsection}
 \renewcommand\thesubsubsection{\@arabic\c@subsection.\@arabic\c@subsubsection}
@@ -182,7 +190,7 @@
 
 \begin{document}
 \renewcommand\contentsname{
-    \centering\bfseries\Large{Index to the Articles}\newline\justifying
+    \centering\bfseries\Large{Index to the Articles}\justifying
 }
 
 \maketitle
@@ -349,7 +357,7 @@ used principally for the benefit of the community.}
 \subsubsection[Disclosure of confidential information relating to Director's Conflict of Interest]{When a Director has a Conflict of Interest which they have declared to the Directors, they shall not be in breach of their duties to the Company by withholding confidential information from the Company if to disclose it would result in a breach of any other duty or obligation of confidence owed by them.}
 \subsubsection[Directors' voting at meetings and conflict of interest]{A Director must not vote at a board meeting (or at a meeting of a sub-committee) on any resolution which relates to a matter in which they have a personal interest or duty which conflicts (or may conflict) with the interests of the Hackerspace; they must withdraw from the meeting while an item of that nature is being dealt with.}\label{subsubsubsection:withdraw}
 \subsubsection[Definition of a personal interest]{For the purposes of \fancyref{subsubsubsection:withdraw}: a Director will be deemed to have a personal interest in relation to a particular matter if a body in relation to which they are an Employee, Director, Officer or Elected Representative has an interest in the matter.}
-\subsubsection[Quorum at Directors' meetings resulting from Conflict of Interest]{If, as a result of a Conflict of Interest (and the Directors have not authorised this Conflict ofIinterest) quorum at a Directors' meeting cannot be reached, the Directors must defer the decision to the membership by calling an EGM.}
+\subsubsection[Quorum at Directors' meetings resulting from Conflict of Interest]{If, as a result of a Conflict of Interest (and the Directors have not authorised this Conflict of Interest) quorum at a Directors' meeting cannot be reached, the Directors must defer the decision to the membership by calling an EGM.}
 
 \subsection{Directors' power to authorise a conflict of interest}\label{subsubsection:authconflict}
 \subsubsection[Directors' conflict of interest authorisation]{The Directors have power to authorise a Director to be in a position of Conflict of Interest provided:}\label{subsubsubsection:canauth}
