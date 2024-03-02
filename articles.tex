@@ -7,9 +7,12 @@
 \usepackage{hang}
 % \usepackage{endnotes}
 \usepackage[indentafter]{titlesec}
+\usepackage{titletoc}
+\usepackage{etoolbox}
 \usepackage[singlespacing]{setspace}
 \usepackage{changepage}
 \usepackage{ragged2e}
+
 % Colourisation of certain clauses
 %'
 %' As regards to colour (like red text in the template we used),
@@ -98,11 +101,15 @@
 %' This compliments the section numbering above: note no argument
 %' \thesection in \section*'s \titleformat incantation.
 %'
-%' The hang part in sub-/sub-sub-sections is pretty important.
+%' The 'hang' part in sub-/sub-sub-sections is pretty important.
 %' The text otherwise appears at the very start of the next line!
 %' I don't know why block doesn't work like this.
 %' I just tried each titlesec shape option in the manual until I found
 %' this one worked best.
+%'
+%' Equally, setting 'runin' instead of 'hang' for section caused weird
+%' indentation issues in the TOC, but because the titles are short,
+%' had no apparent advantage.
 %'
 %' The desired behaviour of indentation of subsequent text is actually in
 %' conflict with the expected behaviour. The expected behaviour is that
@@ -123,14 +130,14 @@
 \def\clauseindent{30pt}
 \def\fakecolour{black}
 
-\titleformat{\section}[runin]% Section to customise
-            {\Large\bfseries}% Title text format
-            {}%                Title body
-            {0pt}%             Horizontal separation between label/title body
-            {}%                Space before title body
-            []%                Space after title body
+% \titleformat{\section}[hang]{\centering\bfseries\Large}{\thesection}{0pt}{}[]
+\titleformat{\section}[hang]{\bfseries\Large}{\thesection}{0pt}{}[]
 \titleformat{\subsection}[hang]{\raggedright\bfseries}{\makebox[\clauseindent][l]{\thesubsection.}}{0pt}{}
 \titleformat{\subsubsection}[hang]{\raggedright\mdseries}{\makebox[\clauseindent][l]{\thesubsubsection.}}{0pt}{}
+
+% Fix weird indentation of TOC start
+% https://tex.stackexchange.com/questions/269711/titlesec-toc-formatting-capitalization-subsection-numbering-for-sections-ti
+
 
 % Include unnumbered sections in the TOC
 %'
@@ -235,9 +242,9 @@ used principally for the benefit of the community.}
 \subsubsection[Use of the resources is at user's own risk]{Use of the Hackerspace's facilities and equipment shall be at the user's own risk.}
 \subsubsection[The Hackerspace is not liable]{The Hackerspace shall not be held responsible nor liable for any actions or behaviour of individuals or groups, whether members or guests.}
 
-\newpage\section*{Directors}
+\newpage\section*{\huge{Directors}}
 \addcontentsline{toc}{section}{Directors}
-\vspace{1.5\baselineskip}\section*{Directors' Powers and Responsibilities}
+\section*{Directors' Powers and Responsibilities}
 \addcontentsline{toc}{section}{Directors' Powers and Responsibility}
 
 \subsection{Number of Directors}
@@ -444,9 +451,9 @@ be reappointed as a director; or
 \end{subindentlist}\begin{adjustwidth}{\clauseindent}{}
 or otherwise in connection with the exercise of their powers and the discharge of their responsibilities in relation to the Company.\end{adjustwidth}
 
-\newpage\section*{Members}
+\newpage\section*{\huge{Members}}
 \addcontentsline{toc}{section}{Members}
-\vspace{1.5\baselineskip}\section*{Becoming and Ceasing to be a Member}
+\section*{Becoming and Ceasing to be a Member}
 \addcontentsline{toc}{section}{Becoming and Ceasing to be a Member}
   
 \subsection{General}
