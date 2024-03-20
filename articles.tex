@@ -11,7 +11,8 @@
 \usepackage{etoolbox}
 \usepackage[singlespacing]{setspace}
 \usepackage{changepage}
-\usepackage{ragged2e}
+\usepackage[raggedrightboxes]{ragged2e}
+\usepackage{longtable}
 
 % Colourisation of certain clauses
 %'
@@ -143,6 +144,11 @@
 \titleformat{\subsection}[hang]{\raggedright\bfseries}{\makebox[\clauseindent][l]{\thesubsection.}}{0pt}{}
 \titleformat{\subsubsection}[hang]{\raggedright\mdseries}{\makebox[\clauseindent][l]{\thesubsubsection.}}{0pt}{}
 
+% Tables
+\setlength{\arrayrulewidth}{0.5mm}
+\setlength{\tabcolsep}{18pt}
+\renewcommand{\arraystretch}{1.5}
+
 % Include unnumbered sections in the TOC
 %'
 %' This ensures that sub-sub-sections don't appear in the TOC, but
@@ -214,9 +220,9 @@
   \subsubsection[Specifics of Full Consideration of Assets]{\textcolor{\fakecolour}{Provided the conditions in \fancyref{subsubsection:metaassetrestr} are satisfied, \fancyref{subsubsubsection:fullconsideration} shall not apply to:}}\label{subsubsection:transferrestrictions}
   \begin{subindentlist}
     \item [(a)] \textcolor{\fakecolour}{the transfer of assets to any specified asset-locked body, or (with the consent of the Regulator) to any other asset-locked body; and}
-    \item [(b)] \textcolor{\fakecolour}{The conditions are that the transfer of assets must comply with any restrictions on the transfer of assets for less than full consideration which may be set out elsewhere in the Memorandum and Articles of the Company.}
+    \item [(b)] \textcolor{\fakecolour}{the transfer of assets made for the benefit of the community other than by way of a transfer of assets into an asset-locked body.}
   \end{subindentlist}
-  \subsubsection[Conditions of Transfer of Assets]{The conditions are that the transfer of assets must comply with any restrictions on the transfer of assets for less than full consideration which may be set out elsewhere in the Memorandum and Articles of the Company.}\label{subsubsection:metaassetrestr}
+  \subsubsection[Conditions of Transfer of Assets]{\textcolor{\fakecolour}{The conditions are that the transfer of assets must comply with any restrictions on the transfer of assets for less than full consideration which may be set out elsewhere in the Memorandum and Articles of the Company.}}\label{subsubsection:metaassetrestr}
 % The following sub-section is not highlighted in red, but don't remove this, as it's fundamental to the space's model!
 \subsection{Not For Profit}
 \subsubsection[Investiture of Assets or Surplus in Community]{The Company is not established or conducted for private gain: any surplus or assets are
@@ -311,7 +317,7 @@ used principally for the benefit of the community.}
 \subsubsection{Notice of Directors' Meetings Need Not Be in Writing.}
 \subsubsection[Notice of Directors' Meetings by Electronic Means]{Notice of Directors' meetings may be sent by Electronic Means to an Address provided by the Director for the purpose.}
 
-\subsection{Participation in Directors' Meetings}
+\subsection{Participation in Directors' Meetings}\label{subsection:dirmeetspart}
 \subsubsection[Specifics of Participation in Directors' Meetings]{Subject to the Articles, Directors participate in a Directors' meeting, or part of a Directors' meeting, when:}
 \begin{subindentpara}
   \item the meeting has been called and takes place in accordance with the Articles; and
@@ -330,7 +336,7 @@ used principally for the benefit of the community.}
 \subsubsection[Director to Chair a Given Directors' Meeting]{A Director nominated by the Directors present shall preside as chair of each Directors' meeting.}
 
 % The following sub-section is highlighted in red in template:
-\subsection{Decision-Making at Directors' Meetings}
+\subsection{Decision making at a meeting}
   \subsubsection[Majority Voting at Directors' Meetings]{\textcolor{\fakecolour}{Questions arising at a Directors' meeting shall be decided by a majority of votes.}}
   \subsubsection[One Vote per Director at Directors' Meetings]{\textcolor{\fakecolour}{In all proceedings of Directors each Director must not have more than one vote.}}
 \subsection{Decisions without a Meeting}\label{subsubsection:withoutmeeting}
@@ -468,7 +474,7 @@ or otherwise in connection with the exercise of their powers and the discharge o
 \subsection{Qualifications for Membership}
 \subsubsection[Membership 16 and Above]{Membership is open to any individual aged 16 or over.}
 
-\subsection{Becoming a Member}
+\subsection{Becoming a member}
 \subsubsection[First Members of the Company]{\textcolor{\fakecolour}{The subscribers to the Memorandum are the first Members of the Company.}}
 \subsubsection[Members Are Admitted in Accordance with Articles]{\textcolor{\fakecolour}{Such other persons as are admitted to membership in accordance with the Articles shall be Members of the Company.}}
 \subsubsection[Potential Members Must Be Approved by Directors]{\textcolor{\fakecolour}{No person shall be admitted a member of the Company unless they are approved by the Directors.}}
@@ -481,8 +487,8 @@ or otherwise in connection with the exercise of their powers and the discharge o
 \subsubsection[Members Not Entitled to Refund of Subscription]{A person who ceases (for whatever reason) to be a Member shall not be entitled to any refund of the membership subscription.}
 
 \subsection{Termination of Membership}
-\subsubsection[Membership Non-Transferable]{Membership is not transferable to anyone else.}
-\subsubsection[Specifics of Termination of Membership]{Membership is terminated if:}
+\subsubsection[Membership Non-Transferable]{\textcolor{\fakecolour}{Membership is not transferable to anyone else.}}
+\subsubsection[Specifics of Termination of Membership]{\textcolor{\fakecolour}{Membership is terminated if:}}
 \begin{subindentpara}
     \item \textcolor{\fakecolour}{the Member dies or ceases to exist;}
     \item \textcolor{\fakecolour}{otherwise in accordance with the Articles;}
@@ -537,7 +543,7 @@ or otherwise in connection with the exercise of their powers and the discharge o
 \subsubsection[Specifics of Quorum Constitution]{Ten persons entitled to vote on the business to be transacted (each being a member, a proxy for a member); or one half of the total membership (represented in person or by proxy), whichever is fewer, shall be a quorum.}
 \subsubsection[Adjournment as Result of No Quorum]{If a quorum is not present within half an hour from the time appointed for the meeting, the meeting shall stand adjourned to the same day in the next week at the same time and place, or to such time and place as the Directors may determine, and if at the adjourned meeting a quorum is not present within half an hour from the time appointed for the meeting those present and entitled to vote shall be a quorum.}
 
-\subsection{Chairing General Meetings}
+\subsection{Chairing General Meetings}\label{subsection:chairgen}
 \subsubsection[A Director Chairs a General Meeting]{A Director nominated by the Directors will preside as chair of a general meeting. If there is only one Director present and willing to act, they shall be chair of the meeting.} \label{subsubsection:nomchair}
 \subsubsection[Members May Elect Chair in Absence of Suitable Director]{If no Director is willing to act as chair of the meeting, or if no Director is present within half an hour after the time appointed for holding the meeting, the members present in person or by proxy and entitled to vote must choose one of their number to be chair of the meeting, save that a proxy holder who is not a member entitled to vote shall not be entitled to be appointed chair of the meeting.}
 
@@ -576,7 +582,7 @@ or otherwise in connection with the exercise of their powers and the discharge o
 \subsubsection[Only Members May Vote at General Meetings]{\textcolor{\fakecolour}{A person who is not a member of the Company shall not have any right to vote at a general meeting of the Company; but this is without prejudice to any right to vote on a resolution affecting the rights attached to a class of the Company's debentures.}} \label{subsubsection:nonmemberVoting}
 \subsubsection[Proxies May Vote on Members' Behalf]{\fancyref{subsubsection:nonmemberVoting} shall not prevent a person who is a proxy for a member from voting at a general meeting of the Company.}
 
-\subsection{Votes}
+\subsection{Votes}\label{subsection:votes}
 \subsubsection[Maximum One Vote in Show of Hands]{On a vote on a resolution on a show of hands at a meeting every person present in person (whether a member or a proxy for a member) and entitled to vote shall have a maximum of one vote.}
 \subsubsection[Maximum One Vote on Resolution on Poll]{On a vote on a resolution on a poll at a meeting every member present in person or by proxy shall have one vote.}
 \subsubsection[No Casting Vote for Meeting Chair]{In the case of an equality of votes, whether on a show of hands or on a poll, the chair of the meeting shall not be entitled to a casting vote in addition to any other vote they may have.}
@@ -608,7 +614,7 @@ or otherwise in connection with the exercise of their powers and the discharge o
 \subsubsection[Disputes and Errors of Qualification]{No objection may be raised to the qualification of any person voting at a general meeting except at the meeting or adjourned meeting at which the vote objected to is tendered, and every vote not disallowed at the meeting is valid.}
 \subsubsection[Decisions on Disputes and Errors of Qualification]{Any such objection must be referred to the chair of the meeting whose decision is final.}
 
-\subsection{Content of Proxy Notices}
+\subsection{Content of Proxy Notices}\label{subsection:proxycont}
 \subsubsection[Specifics of Content of Proxy Notices]{Proxies may only validly be appointed by a notice in writing (a ``Proxy Notice'') which:}
 \begin{subindentlist}
     \item [(a)] states the name of the member appointing the proxy;
@@ -722,5 +728,51 @@ or otherwise in connection with the exercise of their powers and the discharge o
 \begin{subindentpara}
     \item The relevant model articles for a company limited by guarantee are hereby expressly excluded.
 \end{subindentpara}
+
+\setcounter{section}{0}
+\setcounter{subsection}{0}
+
+\newpage\section*{\huge{Schedule}}
+\addcontentsline{toc}{section}{Schedule}
+\section*{\huge{Interpretation}}
+
+\subsection*{Defined terms}
+\subsection{\mdseries\normalsize{In the Articles, unless the context requires otherwise, the following terms shall have the following meanings:}}
+
+%\begin{tabular}{p{1.5in} p{34em}}
+\begin{longtable}[p]{ p{1.5in} p{30em} }
+{\bfseries{Term}} & {\bfseries{Meaning}} \\
+  ``Address'' & includes a number or address used for the purposes of sending or receiving Documents by Electronic Means; \\
+  ``Articles'' & the Company's articles of association \\
+  ``Authorised Representative'' & means any individual nominated by a Member Organisation to act as its representative at any meeting of the Company in accordance with \fancyref{subsection:votes} \\
+  ``asset-locked body'' & means (i) a community interest company, a charity  or a Permitted Industrial and Provident Society; or (ii) a body established outside the United Kingdom that is equivalent to any of those; \\
+  ``bankruptcy'' & includes individual insolvency proceedings in a jurisdiction other than England and Wales or Northern Ireland which have an effect similar to that of bankruptcy; \\
+  ``chairman of the meeting'' & has the meaning given in \fancyref{subsection:chairgen}; \\
+  ``Circulation Date'' & in relation to a written resolution, has the meaning given to it in the Companies Acts; \\
+  ``Clear Days'' & in relation to the period of a notice, that period excluding the day when the notice is given or deemed to be given and the day for which it is given or on which it is to take effect; \\
+  ``community'' & is to be construed in accordance with accordance with Section 35(5) of the Company’s (Audit) Investigations and Community Enterprise) Act 2004; \\
+  ``Companies Acts'' & means the Companies Acts (as defined in Section 2 of the Companies Act 2006), in so far as they apply to the Company; \\
+  ``Company'' & Glasgow Hackerspace CIC \\
+  ``Conflict of Interest'' & any direct or indirect interest of a Director (whether personal, by virtue of a duty of loyalty to another organisation or otherwise) that conflicts, or might conflict with the interests of the Company; \\
+  ``Director'' & a director of the Company, and includes any person occupying the position of director, by whatever name called; \\
+  ``Document'' & includes, unless otherwise indicated, any Document sent or supplied in Electronic Form; \\
+  ``Electronic Form'' and ``Electronic Means'' & have the meanings respectively given to them in Section 1168 of the Companies Act 2006; \\
+  ``Hard Copy Form'' & has the meaning given to it in the Companies Act 2006; \\
+  ``Memorandum'' & the Company’s memorandum of association; \\
+  ``paid'' & means paid or credited as paid; \\
+  ``participate'' & in relation to a Directors’ meeting, has the meaning given in \fancyref{subsection:dirmeetspart}; \\
+  ``Permitted Industrial and Provident Society'' & an industrial and provident society which has a restriction on the use of its assets in accordance with Regulation 4 of the Community Benefit Societies (Restriction on Use of Assets) Regulations 2006 or Regulation 4 of the Community Benefit Societies (Restriction on Use of Assets) Regulations (Northern Ireland) 2006; \\
+  ``Proxy Notice'' & has the meaning given in \fancyref{subsection:proxycont}; \\
+  
+  ``the Regulator'' & means the Regulator of Community Interest Companies; \\
+  ``Secretary'' & the secretary of the Company (if any); \\
+  ``specified'' & means specified in the memorandum and articles of association of the Company for the purposes of this paragraph; \\
+  ``subsidiary'' & has the meaning given in section 1159 of the Companies Act 2006; \\
+  ``transfer'' & includes every description of disposition, payment, release or distribution, and the creation or extinction of an estate or interest in, or right over, any property; and \\
+  ``Writing'' & the representation or reproduction of words, symbols or other information in a visible form by any method or combination of methods, whether sent or supplied in Electronic Form or otherwise. \\  
+\end{longtable}
+
+\subsection{\mdseries\normalsize{Subject to clause 3 of this Schedule, any reference in the Articles to an enactment includes a reference to that enactment as re-enacted or amended from time to time and to any subordinate legislation made under it.}}
+\subsection{\mdseries\normalsize{Unless the context otherwise requires, other words or expressions contained in these Articles bear the same meaning as in the Companies Act 2006 as in force on the date when the Articles become binding on the Company.}}
 
 \end{document}
