@@ -1,0 +1,81 @@
+% NOTE: template from https://www.maltegerken.de/blog/2021/07/creating-pdf-forms-with-latex/
+\documentclass[parskip=full]{scrartcl}
+
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{pbox}
+
+\renewcommand*{\DefaultOptionsofRadio}{print,radio, radiosymbol=6, width=\baselineskip, bordercolor={black}, borderwidth=0pt}
+\renewcommand*{\DefaultOptionsofText}{print,bordercolor={black}, backgroundcolor=white, borderwidth=0pt}
+
+\renewcommand{\LayoutTextField}[2]{% label, field
+\setbox0=\hbox{#1\unskip}\ifdim\wd0=0pt
+\setbox1=\hbox{#2\unskip}\ifdim\ht1>3ex
+% Multiline
+\begin{tikzpicture}[every node/.style={inner sep=0,outer sep=0}]
+  \node[anchor=west] (TextFieldNode) at (0cm,0cm) {#2};
+  \draw [thick] (current bounding box.south west) rectangle (current bounding box.north east);
+\end{tikzpicture}%
+\else
+% Inline field, lowered a little bit to be better integrated into the text
+\raisebox{-3.2pt}{\begin{tikzpicture}[every node/.style={inner sep=0,outer sep=0}]
+  \node[anchor=west] (TextFieldNode) at (0cm,0cm) {#2};
+  \draw[thick] ([yshift=-0.3ex]TextFieldNode.south west) -- ([yshift=-0.3ex]TextFieldNode.south east);
+\end{tikzpicture}}%
+\fi
+\else
+% Field with label below it
+\begin{tikzpicture}[every node/.style={inner sep=0,outer sep=0}]
+  \node[anchor=west] (TextFieldNode) at (0cm,2ex) {#2};
+  \draw[thick] ([yshift=-0.3ex]TextFieldNode.south west) -- ([yshift=-0.3ex]TextFieldNode.south east);
+  \node[anchor=west,font=\footnotesize] at (0cm,-0.9ex) {#1};
+\end{tikzpicture}%
+\fi
+}
+\newcommand{\field}[2]{\TextField[width=#2]{#1}}
+\newcommand{\fieldinline}[2]{\TextField[width=#2,name=#1]{}}
+
+\newcommand{\radiosize}{0.33cm}
+\newcommand{\yesnoticks}[1]{%
+\raisebox{-3.2pt}{\begin{tikzpicture}[every node/.style={inner sep=0,outer sep=0}]
+  \node[anchor=west,style={inner sep=2px}] (FieldYes) at (0cm,0cm) {\ChoiceMenu[radio=true,name=#1,width=\radiosize,height=\radiosize]{}{=Yes}};
+  \node[anchor=west] (LabelYes) at ([xshift=0.7ex]FieldYes.east) {Yes};
+  \node[anchor=west,style={inner sep=2px}] (FieldNo) at ([xshift=1ex]LabelYes.east) {\ChoiceMenu[radio=true,name=#1,width=\radiosize,height=\radiosize]{}{=No}};
+  \node[anchor=west] (LabelNo) at ([xshift=0.7ex]FieldNo.east) {No};
+  \draw [thick] ([xshift=-(\radiosize+0.15cm),yshift=-(\radiosize+0.15cm)]FieldYes.north east) rectangle (FieldYes.north east);
+  \draw [thick] ([xshift=-(\radiosize+0.15cm),yshift=-(\radiosize+0.15cm)]FieldNo.north east) rectangle (FieldNo.north east);
+\end{tikzpicture}}%
+}
+\newcommand{\yesno}[2]{\pbox{0.7\textwidth}{\setstretch{1}#1}\hfill\yesnoticks{#2}}
+
+\begin{document}
+  \section*{Glasgow Hackerspace CIC membership form}
+  \begin{Form}
+    \field{email}{1.0\linewidth}%
+
+    \field{discord username (if you are on the discord)}{1.0\linewidth}%
+
+    \field{pseudo or name you want to be known by}{1.0\linewidth}%
+
+    \field{Membership fee per month (see below for more information)}{1.0\linewidth}%
+
+    \yesno{Are you over 18 years old?}{adult}
+
+    \subsection*{Postal contact informations}
+
+    \field{first name}{0.45\linewidth}\hfill\field{last name}{0.5\linewidth}%
+
+    \field{address}{1.0\linewidth}%
+
+    \field{city}{0.3\linewidth}\hfill\field{postcode}{0.3\linewidth}\hfill\field{country}{0.3\linewidth}%
+  \end{Form}
+
+  We will contact you by email as soon as possible to confirm your membership.
+
+  Suggested membership is £25/month. Membership fees are currently optional, until we find a permanent space, but any membership fees will go towards securing a space, building up a buffer for rent, and possibly purchasing equipment for the space.
+
+  Our Articles of Association are available at: https://github.com/glasgowhackerspace/company
+
+  These informations will be stored securly in Proton Drive.
+\end{document}
