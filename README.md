@@ -3,3 +3,8 @@ These TeX documents use hyperref. Compilation is with `latexmk(1)` as several pa
 ```
 latexmk -pdf articles.tex
 ```
+
+To clean up the directory after a build:
+```
+latexmk -c
+```
