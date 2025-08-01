@@ -1,10 +1,14 @@
 % NOTE: template from https://www.maltegerken.de/blog/2021/07/creating-pdf-forms-with-latex/
-\documentclass[parskip=full]{scrartcl}
+\documentclass[12pt, parskip=full]{scrartcl}
 
 \usepackage{tikz}
 \usepackage{hyperref}
 \usepackage{setspace}
 \usepackage{pbox}
+\usepackage{mlmodern}
+\usepackage[T1]{fontenc}
+
+\usepackage[a4paper, top=0.5in, bottom=0.5in]{geometry}
 
 \renewcommand*{\DefaultOptionsofRadio}{print,radio, radiosymbol=6, width=\baselineskip, bordercolor={black}, borderwidth=0pt}
 \renewcommand*{\DefaultOptionsofText}{print,bordercolor={black}, backgroundcolor=white, borderwidth=0pt}
@@ -53,19 +57,21 @@
   \thispagestyle{empty} % suppress page number
   \section*{Glasgow Hackerspace CIC membership form}
   \begin{Form}
-    \field{email}{1.0\linewidth}%
+    \field{email address}{1.0\linewidth}%
 
     \field{discord username (if you are on the discord)}{1.0\linewidth}%
 
     \field{pseudo or name you want to be known by}{1.0\linewidth}%
 
-    \field{Membership fee per month (see below for more information)}{1.0\linewidth}%
+    \field{username for wiki account\footnotemark[1]}{1.0\linewidth}%
+
+    \field{membership fee per month (see below for more information)}{1.0\linewidth}%
 
     \yesno{Are you over 18 years old?}{adult}
 
-    \yesno{Have you read and agree to abide by the health and safety policy\footnotemark[1]?}{policy}
+    \yesno{Have you read and agree to abide by the health and safety policy\footnotemark[2]?}{policy}
 
-    \subsection*{Postal contact informations}
+    \subsection*{Postal contact information}
 
     \field{first name}{0.45\linewidth}\hfill\field{last name}{0.5\linewidth}%
 
@@ -88,6 +94,7 @@
   2006).
 
   \footnotetext{Our Articles of Association are available at: https://github.com/glasgowhackerspace/company}
-  \footnotetext[1]{Health and Safety policy: https://wiki.glashack.space/doku.php?id=about:health-and-safety}
+  \footnotetext[1]{Wiki: https://wiki.glashack.space}
+  \footnotetext[2]{Health and Safety policy: https://wiki.glashack.space/doku.php?id=about:health-and-safety}
 
 \end{document}
